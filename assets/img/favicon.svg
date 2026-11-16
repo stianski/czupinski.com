@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <!-- Favicon: monogram SC w miedzianym pierścieniu. Kolory wpisane na stałe,
+       bo ikona karty nie widzi zmiennych CSS strony. Ciemny krążek pod spodem
+       sprawia, że znak jest czytelny także na jasnym pasku kart. -->
+  <circle cx="60" cy="60" r="56" fill="#0f1f1a" stroke="#d4935a" stroke-width="8"/>
+  <text x="59" y="79" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="56" letter-spacing="-1" fill="#f4ede0">S<tspan fill="#d4935a" font-style="italic">C</tspan></text>
+</svg>

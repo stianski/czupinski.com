@@ -1,0 +1,5 @@
+# Cała strona jest publiczna, roboty mogą indeksować wszystko.
+User-agent: *
+Allow: /
+
+Sitemap: https://czupinski.com/sitemap.xml

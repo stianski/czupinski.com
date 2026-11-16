@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<!-- data-theme="dark" to wartość domyślna; theme.js podmienia ją na zapisany wybór. -->
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    Content-Security-Policy. GitHub Pages nie pozwala ustawiać nagłówków HTTP,
+    więc polityka jest w znaczniku meta. Zasada: wszystko zabronione (default-src 'none'),
+    a potem dopuszczamy tylko własne pliki ('self'). Bez 'unsafe-inline'.
+    Hash sha256 dopuszcza jeden konkretny blok inline: dane JSON-LD na dole <head>.
+    Po każdej zmianie tego bloku hash trzeba policzyć od nowa: tools\csp-hash.ps1
+    Uwaga: frame-ancestors nie działa w meta, to wymagałoby prawdziwego nagłówka.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-uf+V+81mCAwcq2b9zGaPlx1YVVVJV5bXtL/+klP1aIU='; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Sebastian Czupiński | Cybersecurity Senior Consultant (GRC)</title>
+  <meta name="description" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC). ISO/IEC 27001, ISMS, zarządzanie ryzykiem, TPRM, DORA, NIS2 / KSC.">
+  <meta name="author" content="Sebastian Czupiński">
+  <meta name="theme-color" content="#0f1f1a">
+
+  <!-- Adres kanoniczny i powiązanie wersji językowych (dla wyszukiwarek). -->
+  <link rel="canonical" href="https://czupinski.com/">
+  <link rel="alternate" hreflang="pl" href="https://czupinski.com/">
+  <link rel="alternate" hreflang="en" href="https://czupinski.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://czupinski.com/">
+
+  <!-- Open Graph: podgląd linku w komunikatorach i na LinkedIn. Adresy muszą być pełne. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="czupinski.com">
+  <meta property="og:title" content="Sebastian Czupiński | Cybersecurity Senior Consultant (GRC)">
+  <meta property="og:description" content="Bezpieczeństwo informacji od strony governance, ryzyka i compliance: ISMS, risk assessment, ryzyko dostawców, DORA i NIS2.">
+  <meta property="og:url" content="https://czupinski.com/">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:image" content="https://czupinski.com/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC)">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <!-- Czcionka nagłówków pobierana z wyprzedzeniem, żeby imię i nazwisko w hero nie "przeskakiwało".
+       Dwa pliki, bo "ń" siedzi w zestawie latin-ext. crossorigin jest wymagane przy czcionkach. -->
+  <link rel="preload" href="assets/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/newsreader-latin-ext-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Celowo bez defer: skrypt ma ustawić motyw przed narysowaniem strony. -->
+  <script src="assets/js/theme.js"></script>
+  <!-- Menu na telefonie, aktywna sekcja, pasek postępu. defer = nie blokuje rysowania strony. -->
+  <script src="assets/js/nav.js" defer></script>
+
+  <!-- Dane strukturalne dla wyszukiwarek. Jedna linia, bo z jej treści liczony jest hash w CSP. -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Sebastian Czupiński","jobTitle":"Cybersecurity Senior Consultant (GRC)","url":"https://czupinski.com/","address":{"@type":"PostalAddress","addressCountry":"PL"},"knowsLanguage":["pl","en"],"knowsAbout":["ISO/IEC 27001","ISMS","Information security risk management","Third-party risk management (TPRM)","DORA","NIS2","Audit","Compliance","Security policies and procedures","Security governance","Business continuity","Security awareness"],"sameAs":["https://www.linkedin.com/in/stianski"]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#tresc">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Sebastian Czupiński, początek strony">
+        <svg class="brand-mark" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+          <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+        </svg>
+        <span>czupinski.com</span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Sekcje strony">
+        <ul>
+          <li><a href="#o-mnie">O mnie</a></li>
+          <li><a href="#uslugi">Usługi</a></li>
+          <li><a href="#obszary">Obszary</a></li>
+          <li><a href="#doswiadczenie">Doświadczenie</a></li>
+          <li><a href="#certyfikaty">Certyfikaty</a></li>
+          <li><a href="#projekty">Projekty</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <nav class="lang-switch" aria-label="Wersja językowa">
+          <span aria-current="true" lang="pl">PL</span>
+          <!-- Pełna ścieżka do pliku (a nie samo "en/"), żeby link działał także po otwarciu
+               strony dwuklikiem z dysku, gdzie nie ma serwera, który sam dobierze index.html. -->
+          <a href="en/index.html" lang="en" hreflang="en" aria-label="English version">EN</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle
+                aria-label="Włącz motyw jasny"
+                data-label-light="Włącz motyw jasny"
+                data-label-dark="Włącz motyw ciemny">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>
+          </svg>
+        </button>
+        <!-- Przycisk menu: widoczny tylko na wąskim ekranie i tylko z JavaScriptem (nav.js). -->
+        <button class="nav-toggle" type="button" data-nav-toggle
+                aria-controls="menu" aria-expanded="false"
+                aria-label="Otwórz menu"
+                data-label-open="Otwórz menu"
+                data-label-close="Zamknij menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M4 8h16M4 16h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="tresc">
+
+    <!-- 1. HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-tytul">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Cybersecurity Senior Consultant (GRC)</p>
+          <h1 id="hero-tytul">Sebastian <span class="name-accent">Czupiński</span></h1>
+          <p class="hero-lead">Zajmuję się bezpieczeństwem informacji od strony governance, ryzyka i compliance: od ISMS i risk assessment po ryzyko dostawców, DORA i NIS2.</p>
+          <p class="hero-actions">
+            <a class="button" href="#kontakt">Kontakt</a>
+            <a class="button button-ghost" href="#doswiadczenie">Doświadczenie</a>
+          </p>
+          <dl class="hero-facts">
+            <div><dt>lokalizacja</dt><dd>Polska</dd></div>
+            <div><dt>języki</dt><dd>polski, angielski</dd></div>
+            <div><dt>doświadczenie</dt><dd>ok. 7 lat w cyberbezpieczeństwie</dd></div>
+          </dl>
+        </div>
+        <!-- "Pieczęć zgodności" zamiast zdjęcia: monogram, a dookoła normy i regulacje (te same,
+             co w sekcji "Obszary"). Dekoracja, więc ukryta przed czytnikami ekranu. -->
+        <svg class="seal" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+          <defs>
+            <path id="seal-path" d="M24 120A96 96 0 1 1 216 120A96 96 0 1 1 24 120"/>
+          </defs>
+          <circle class="seal-ring seal-ring-outer" cx="120" cy="120" r="116"/>
+          <circle class="seal-ring" cx="120" cy="120" r="78"/>
+          <g class="seal-spin">
+            <text class="seal-text"><textPath href="#seal-path" textLength="596" lengthAdjust="spacing">ISO/IEC 27001 &#8226; ISO 22301 &#8226; DORA &#8226; NIS2 &#8226; KSC &#8226; ISO/IEC 27001 &#8226; ISO 22301 &#8226; DORA &#8226; NIS2 &#8226; KSC &#8226;</textPath></text>
+          </g>
+          <g transform="translate(60 60)">
+            <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+            <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2. O MNIE -->
+    <section class="section band-alt" id="o-mnie" aria-labelledby="o-mnie-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">01</span>
+          <h2 id="o-mnie-tytul">O mnie</h2>
+        </header>
+        <div class="prose">
+          <p>Od około siedmiu lat pracuję w cyberbezpieczeństwie. Dziś jako Senior Consultant w obszarze GRC, wcześniej jako Information Systems Security Officer w sektorze ubezpieczeniowym i IT Security Specialist w projektach dla administracji publicznej.</p>
+          <p>Pracuję w tej części bezpieczeństwa, która dzieje się w procesach i dokumentach: ISMS oparty o ISO/IEC 27001, zarządzanie ryzykiem, third-party risk, audyt oraz wymagania regulacyjne, takie jak DORA i NIS2 / KSC.</p>
+          <p>Pracuję po polsku i po angielsku. Obecnie przygotowuję się do egzaminu CISSP.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. USŁUGI
+         Nowa usługa = skopiuj cały blok <article class="service"> ... </article>. -->
+    <section class="section" id="uslugi" aria-labelledby="uslugi-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">02</span>
+          <h2 id="uslugi-tytul">Usługi</h2>
+        </header>
+        <div>
+          <p class="section-intro">W czym mogę pomóc. Zakres ustalamy zawsze na początku, po krótkiej rozmowie.</p>
+          <div class="service-list">
+            <article class="service">
+              <h3>Analiza luk NIS2 / KSC</h3>
+              <p>Sprawdzenie, które wymagania dyrektywy NIS2 i ustawy o KSC są już spełnione, a których brakuje. Wynik to lista luk i plan działań ułożony według priorytetów.</p>
+              <a href="#kontakt">Zapytaj o tę usługę</a>
+            </article>
+            <article class="service">
+              <h3>ISMS według ISO/IEC 27001</h3>
+              <p>Zaprojektowanie lub uporządkowanie systemu zarządzania bezpieczeństwem informacji: zakres, role, metodyka ryzyka, polityki i procedury. Także audyt wewnętrzny przed certyfikacją.</p>
+              <a href="#kontakt">Zapytaj o tę usługę</a>
+            </article>
+            <article class="service">
+              <h3>Ryzyko dostawców (TPRM)</h3>
+              <p>Proces oceny dostawców: due diligence, oceny bezpieczeństwa, punktacja ryzyka i śledzenie działań naprawczych. Również pod wymagania DORA.</p>
+              <a href="#kontakt">Zapytaj o tę usługę</a>
+            </article>
+            <article class="service">
+              <h3>Ciągłość działania według ISO 22301</h3>
+              <p>Plany ciągłości działania i odtwarzania, scenariusze reagowania oraz ćwiczenia. Także audyt wewnętrzny systemu zarządzania ciągłością działania.</p>
+              <a href="#kontakt">Zapytaj o tę usługę</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. OBSZARY -->
+    <section class="section band-alt" id="obszary" aria-labelledby="obszary-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">03</span>
+          <h2 id="obszary-tytul">Obszary</h2>
+        </header>
+        <div>
+          <p class="section-intro">Tematy, w których pracuję, zebrane w cztery grupy.</p>
+          <div class="area-grid">
+            <div class="area">
+              <h3>Governance i system zarządzania</h3>
+              <ul class="tags">
+                <li>ISO/IEC 27001</li>
+                <li>ISMS</li>
+                <li>security governance</li>
+                <li>polityki i procedury bezpieczeństwa</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Ryzyko</h3>
+              <ul class="tags">
+                <li>zarządzanie ryzykiem bezpieczeństwa informacji</li>
+                <li>TPRM (ryzyko dostawców)</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Regulacje i zgodność</h3>
+              <ul class="tags">
+                <li>DORA</li>
+                <li>NIS2 / KSC</li>
+                <li>compliance</li>
+                <li>audyt</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Ciągłość i ludzie</h3>
+              <ul class="tags">
+                <li>business continuity</li>
+                <li>security awareness</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. DOŚWIADCZENIE -->
+    <section class="section" id="doswiadczenie" aria-labelledby="doswiadczenie-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">04</span>
+          <h2 id="doswiadczenie-tytul">Doświadczenie</h2>
+        </header>
+        <!-- Lista uporządkowana (ol), bo kolejność ma znaczenie: od najnowszej roli.
+             Każda pozycja: lewa część (daty, stanowisko, firma), prawa część (najważniejsze zadania). -->
+        <ol class="timeline">
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">listopad 2026 – obecnie</p>
+              <h3>Senior Compliance Specialist</h3>
+              <p class="timeline-context">firma technologiczna dla rynków finansowych</p>
+            </div>
+            <!-- Nazwy pracodawców są na razie ukryte (zostaje sama branża). Pełne nazwy: docs/TODO.md.
+                 Zakres tej roli to zakres obowiązków, nie osiągnięcia: do poprawienia po kilku miesiącach. -->
+            <ul class="timeline-points">
+              <li>Odpowiedzi na kwestionariusze bezpieczeństwa klientów oraz raporty o zgodności i wskaźnikach dla kierownictwa.</li>
+              <li>Testy kontroli wewnętrznych i utrzymanie zgodności z ISO/IEC 27001, SOC 2, DORA, NIS2 i RODO, w tym koordynacja audytów.</li>
+              <li>Proces oceny ryzyka: identyfikacja, ocena i ograniczanie ryzyk oraz rekomendacje przy zgłoszeniach bezpieczeństwa.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">listopad 2025 – listopad 2026</p>
+              <h3>Cybersecurity Senior Consultant</h3>
+              <p class="timeline-context">producent materiałów budowlanych</p>
+            </div>
+            <ul class="timeline-points">
+              <li>Wdrażanie i rozwój ISMS w dużej, złożonej organizacji, we współpracy z właścicielami kontroli i ryzyk.</li>
+              <li>Procesy zarządzania ryzykiem bezpieczeństwa informacji i ryzykiem dostawców: due diligence, oceny bezpieczeństwa, śledzenie działań naprawczych.</li>
+              <li>Przekładanie wymagań regulacji i norm (m.in. NIS2, DORA, CRA, ISO/IEC 27001) na polityki, standardy i kontrole.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">czerwiec 2023 – listopad 2025</p>
+              <h3>Information Systems Security Officer</h3>
+              <p class="timeline-context">sektor ubezpieczeniowy</p>
+            </div>
+            <ul class="timeline-points">
+              <li>Model zarządzania i działania ISMS: zakres, odpowiedzialności, metodyka ryzyka, kontrole i raportowanie.</li>
+              <li>Koordynacja obsługi incydentów: działania naprawcze, analiza przyczyn oraz raporty dla kierownictwa i regulatora.</li>
+              <li>Program security awareness w całej organizacji, w tym prezentacje i symulacje phishingu.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">maj 2019 – czerwiec 2023</p>
+              <h3>IT Security Specialist</h3>
+              <p class="timeline-context">globalny dostawca usług IT</p>
+            </div>
+            <ul class="timeline-points">
+              <li>Hardening systemów i aplikacji, oceny podatności i kontrola dostępu w projektach dla administracji publicznej.</li>
+              <li>Zarządzanie cyklem poprawek bezpieczeństwa: 95% aktualizacji wdrożonych w terminie.</li>
+              <li>Udział w planowaniu ciągłości działania i odtwarzania (BC/DR): kontrole, scenariusze reagowania, ćwiczenia.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. CERTYFIKATY -->
+    <section class="section band-alt" id="certyfikaty" aria-labelledby="certyfikaty-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">05</span>
+          <h2 id="certyfikaty-tytul">Certyfikaty</h2>
+        </header>
+        <ul class="cert-list">
+          <li>
+            <span class="cert-name">ISO/IEC 27001 Lead Auditor</span>
+            <span class="status">uzyskany</span>
+          </li>
+          <li>
+            <span class="cert-name">ISO 22301 Lead Auditor</span>
+            <span class="status">uzyskany</span>
+          </li>
+          <li>
+            <span class="cert-name">CompTIA Security+</span>
+            <span class="status">uzyskany</span>
+          </li>
+          <li>
+            <span class="cert-name">Microsoft SC-900
+              <span class="cert-detail" lang="en">Security, Compliance, and Identity Fundamentals</span>
+            </span>
+            <span class="status">uzyskany</span>
+          </li>
+          <li>
+            <span class="cert-name">CISSP
+              <span class="cert-detail">Przygotowuję się do egzaminu, certyfikatu jeszcze nie mam.</span>
+            </span>
+            <span class="status status-progress">w trakcie</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. PROJEKTY
+         Nowy projekt = skopiuj cały blok <article class="card"> ... </article>
+         i podmień treść. Szczegóły w README.md. -->
+    <section class="section" id="projekty" aria-labelledby="projekty-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">06</span>
+          <h2 id="projekty-tytul">Projekty</h2>
+        </header>
+        <div class="card-grid">
+          <article class="card">
+            <p class="card-kicker">własny serwer</p>
+            <h3>SillyTavern</h3>
+            <p>Prywatna instalacja SillyTavern, czyli interfejsu do rozmów z modelami językowymi, na własnym serwerze VPS. Usługa działa w Dockerze i jest dostępna wyłącznie przez prywatną sieć Tailscale.</p>
+            <p>Zapora blokuje cały ruch z internetu, do serwera loguję się tylko kluczem SSH, aktualizacje bezpieczeństwa instalują się same, a kopia zapasowa powstaje codziennie. Obrazy generuje ComfyUI na moim komputerze, połączone z serwerem tą samą siecią.</p>
+            <ul class="tags">
+              <li>Docker</li>
+              <li>Tailscale</li>
+              <li>UFW</li>
+              <li>SSH</li>
+              <li>ComfyUI</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <p class="card-kicker">czupinski.com</p>
+            <h3>Ta strona</h3>
+            <p>Statyczny HTML i CSS, bez frameworków i bez kroku budowania. Żadnych ciasteczek, trackerów ani zasobów z zewnętrznych serwerów. JavaScript obsługuje tylko motyw i nawigację, a bez niego strona nadal działa.</p>
+            <p>Restrykcyjna polityka Content-Security-Policy bez <code>unsafe-inline</code>, plik <a href=".well-known/security.txt">security.txt</a> zgodny z RFC 9116 i kontrast policzony pod WCAG AA.</p>
+            <ul class="tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>CSP</li>
+              <li>security.txt</li>
+            </ul>
+          </article>
+
+          <!-- Pusty szablon na kolejny projekt. -->
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: kategoria]</span></p>
+            <h3><span class="todo">[TODO: nazwa projektu]</span></h3>
+            <p><span class="todo">[TODO: 2–3 zdania o tym, co to jest i co w nim zrobiłem]</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. LINKI: miejsce na promowane odnośniki (inne strony, profile, publikacje).
+         Wypełnienie: zamień znaczniki na treść, a nazwę owiń linkiem, np.
+         <h3><a href="https://adres" rel="noopener noreferrer">Nazwa</a></h3>
+         Niepotrzebne karty usuń w całości. -->
+    <section class="section band-alt" id="linki" aria-labelledby="linki-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">07</span>
+          <h2 id="linki-tytul">Więcej ode mnie</h2>
+        </header>
+        <div class="card-grid">
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: rodzaj, np. strona, blog, narzędzie]</span></p>
+            <h3><span class="todo">[TODO: nazwa i adres pierwszego linku]</span></h3>
+            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
+          </article>
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: rodzaj]</span></p>
+            <h3><span class="todo">[TODO: nazwa i adres drugiego linku]</span></h3>
+            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
+          </article>
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: rodzaj]</span></p>
+            <h3><span class="todo">[TODO: nazwa i adres trzeciego linku]</span></h3>
+            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. KONTAKT -->
+    <section class="section" id="kontakt" aria-labelledby="kontakt-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">08</span>
+          <h2 id="kontakt-tytul">Kontakt</h2>
+        </header>
+        <div>
+          <p class="section-intro">Najprościej napisać maila albo odezwać się na LinkedIn. Na stronie nie ma formularza, bo nie ma tu żadnego backendu.</p>
+          <!-- Po uzupełnieniu danych zamień znaczniki na linki. Gotowe wzory są w docs/WDROZENIE.md. -->
+          <dl class="contact-list">
+            <div><dt>e-mail</dt><dd><a href="mailto:kontakt@czupinski.com">kontakt@czupinski.com</a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/stianski" rel="noopener noreferrer">linkedin.com/in/stianski</a></dd></div>
+            <div><dt>GitHub</dt><dd><span class="todo">[TODO: konto jeszcze nie istnieje]</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. STOPKA -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Sebastian Czupiński</p>
+      <p>Bez ciasteczek i trackerów. <a href=".well-known/security.txt">security.txt</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,2021 @@
+/* ==========================================================================
+   czupinski.com - arkusz stylów
+   Jeden plik, bez preprocesora. Kolejność:
+     1. Zmienne (paleta, typografia, odstępy)
+     2. Baza i reset
+     3. Elementy wspólne (linki, focus, przyciski, znacznik TODO)
+     4. Nagłówek i nawigacja
+     5. Hero
+     6. Sekcje i ich zawartość
+     7. Stopka, strona 404
+     8. Punkty łamania (media queries)
+     9. Ruch (tylko gdy użytkownik go nie ograniczył)
+   Pełna dokumentacja kolorów: docs/paleta.md
+   ========================================================================== */
+
+/* 0. CZCIONKI --------------------------------------------------------------
+   Dwie czcionki trzymane lokalnie w assets/fonts (licencja OFL, szczegóły w
+   assets/fonts/README.md): Newsreader do nagłówków, IBM Plex Mono do etykiet.
+   Dzięki temu strona wygląda tak samo na Windows, macOS i Androidzie.
+   Każdy krój jest w dwóch plikach: "latin" (podstawowe znaki) i "latin-ext"
+   (m.in. polskie ą, ę, ł, ń, ś, ź, ż). Zakres unicode-range mówi przeglądarce,
+   który plik zawiera które znaki, więc wersja angielska pobiera tylko "latin".
+   font-display: swap = tekst jest widoczny od razu w czcionce systemowej,
+   a po chwili podmienia się na docelową. */
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/newsreader-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/newsreader-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/newsreader-latin-ext-400-italic.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Newsreader";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/newsreader-latin-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 1. ZMIENNE ---------------------------------------------------------------
+   Motyw ciemny jest domyślny, więc jego kolory siedzą w :root.
+   Motyw jasny tylko nadpisuje te same zmienne - reszta CSS nie wie,
+   który motyw jest aktywny. Dzięki temu zmiana palety to edycja tych
+   bloków i niczego więcej. */
+:root {
+  --color-bg: #0f1f1a;              /* tło strony */
+  --color-surface: #162b23;         /* karty, tagi */
+  --color-text: #f4ede0;            /* tekst główny */
+  --color-heading: #f4ede0;         /* nagłówki */
+  --color-text-muted: #b5bfb0;      /* tekst przygaszony */
+  --color-accent: #d4935a;          /* miedź: linki, etykiety, akcenty */
+  --color-accent-hover: #e6ae7c;    /* miedź po najechaniu */
+  --color-on-accent: #0f1f1a;       /* tekst na miedzianym tle */
+  --color-border: #2e4a3d;          /* obramowania dekoracyjne */
+  --color-border-strong: #5f8472;   /* obramowania kontrolek (min. 3:1) */
+  --color-rail: #0b1713;            /* boczne kolumny po obu stronach ekranu */
+
+  /* Efekty: poświata w hero i cień kart. Osobne zmienne, bo w każdym
+     motywie potrzebują innej siły. */
+  --color-glow: rgba(31, 77, 58, 0.5);
+  --shadow-card: 0 1px 0 rgba(244, 237, 224, 0.04) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.6);
+
+  /* Mówi przeglądarce, jak rysować własne elementy (paski przewijania itp.). */
+  color-scheme: dark;
+
+  /* Typografia: szeryfowa do nagłówków (ciepło), bezszeryfowa do tekstu
+     (czytelność), monospace do etykiet, tagów i dat (akcent techniczny).
+     Nagłówki i etykiety mają własne czcionki z sekcji 0; reszta listy to zapas
+     na czas ładowania. Tekst główny zostaje w czcionce systemowej. */
+  --font-serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Skala odstępów: wielokrotności 0.25rem, żeby wszystko trzymało rytm. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 7rem;
+  --space-10: 9rem;
+
+  --content-width: 70rem;
+  --gutter: 1.25rem;
+  --radius: 0.25rem;
+  --radius-card: 0.625rem;
+}
+
+/* Atrybut data-theme ustawia assets/js/theme.js na elemencie <html>. */
+:root[data-theme="light"] {
+  --color-bg: #f4ede0;
+  --color-surface: #fbf7ee;
+  --color-text: #1f4d3a;
+  --color-heading: #173b2c;
+  --color-text-muted: #4a6155;
+  --color-accent: #8f4e1b;
+  --color-accent-hover: #6f3b12;
+  --color-on-accent: #fbf7ee;
+  --color-border: #d9cfbc;
+  --color-border-strong: #7c8a76;
+  --color-rail: #e9e0cd;
+
+  --color-glow: rgba(184, 115, 51, 0.1);
+  --shadow-card: 0 1px 2px rgba(23, 59, 44, 0.05), 0 18px 40px -28px rgba(23, 59, 44, 0.35);
+
+  color-scheme: light;
+}
+
+/* Pas "stonowany" (klasa na sekcji): te same kolory, tylko tło o pół tonu inne.
+   Co druga sekcja go dostaje, żeby sekcje było od siebie lepiej widać. */
+.band-alt {
+  --color-bg: #162c23;
+  --color-surface: #1e382e;
+}
+
+[data-theme="light"] .band-alt {
+  --color-bg: #e9e0cd;
+  --color-surface: #fbf7ee;
+}
+
+/* 2. BAZA ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Bez tego iOS potrafi sam powiększać tekst po obróceniu telefonu. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Kotwice nie chowają się pod przyklejonym nagłówkiem. */
+  scroll-padding-top: 8rem;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd {
+  margin: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+svg {
+  display: block;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+/* 3. ELEMENTY WSPÓLNE ------------------------------------------------------ */
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* Widoczny focus tylko przy nawigacji klawiaturą (:focus-visible),
+   żeby nie pojawiał się po zwykłym kliknięciu myszą. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Link "przejdź do treści": niewidoczny, dopóki nie dostanie focusu z klawiatury. */
+.skip-link {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: 20;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  transform: translateY(-300%);
+}
+
+.skip-link:focus {
+  color: var(--color-on-accent);
+  transform: none;
+}
+
+/* Tekst tylko dla czytników ekranu. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+/* Wspólny styl małych etykiet: monospace, wersaliki, szerokie światła między literami.
+   To ten sam "głos" w nawigacji, numerach sekcji, statusach i przyciskach. */
+.eyebrow,
+.section-label,
+.site-nav a,
+.lang-switch,
+.button,
+.status,
+.card-kicker,
+.timeline-meta,
+.hero-facts dt,
+.contact-list dt,
+.site-footer {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Przyciski to zwykłe linki-kotwice, więc działają bez JavaScriptu. */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.875rem;
+  padding: 0 var(--space-5);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+
+/* Strzałka dopisana w CSS. Drugie "content" podaje pusty tekst zastępczy,
+   żeby czytniki ekranu jej nie czytały; starsze przeglądarki biorą pierwsze. */
+.button::after {
+  content: "→";
+  content: "→" / "";
+  margin-left: 0.7em;
+}
+
+.button:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.button-ghost {
+  background: transparent;
+  color: var(--color-heading);
+  border-color: var(--color-border-strong);
+}
+
+.button-ghost:hover {
+  background: transparent;
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Znacznik braków do uzupełnienia. Ma być widać, że to nie jest treść docelowa.
+   Celowo bez wersalików: to notatka robocza, nie element projektu. */
+.todo {
+  display: inline-block;
+  padding: 0.15em 0.6em;
+  border: 1px dashed var(--color-accent);
+  border-radius: var(--radius);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-style: normal;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+/* 4. NAGŁÓWEK I NAWIGACJA -------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* Pierwsza deklaracja to zapas dla starszych przeglądarek. Nowsze biorą drugą:
+     lekko przezroczyste tło z rozmyciem tego, co przewija się pod nagłówkiem. */
+  background: var(--color-bg);
+  background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Na telefonie: dwa wiersze (marka + kontrolki, pod spodem nawigacja).
+   Na szerokim ekranie wszystko w jednym wierszu - patrz sekcja 8. */
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+  padding-block: var(--space-3);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-heading);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--color-accent);
+}
+
+.brand-mark {
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: none;
+}
+
+.site-nav {
+  order: 3;
+  width: 100%;
+  /* Gdyby linki nie zmieściły się w wierszu, przewijają się w poziomie
+     zamiast rozpychać stronę. Maska wygasza prawą krawędź i podpowiada,
+     że dalej coś jeszcze jest. */
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(to right, #000 82%, transparent);
+  mask-image: linear-gradient(to right, #000 82%, transparent);
+}
+
+.site-nav ul {
+  display: flex;
+  gap: var(--space-5);
+  /* Margines na obrys focusu i zapas z prawej, żeby ostatni link wyjechał spod maski. */
+  padding: var(--space-1) var(--space-7) var(--space-1) var(--space-1);
+}
+
+.site-nav a {
+  display: block;
+  padding-block: var(--space-2);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  /* Miedziana kreska pod linkiem, która "wyrasta" po najechaniu: to tło o szerokości 0 -> 100%. */
+  background: linear-gradient(var(--color-accent), var(--color-accent)) no-repeat left bottom / 0 1px;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  background-size: 100% 1px;
+}
+
+.site-nav a:hover {
+  color: var(--color-heading);
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Przełącznik języka jako jedna "pigułka" z dwoma polami. */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+}
+
+.lang-switch a,
+.lang-switch span {
+  min-width: 2.25rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.lang-switch a {
+  color: var(--color-text-muted);
+}
+
+.lang-switch a:hover {
+  color: var(--color-accent);
+}
+
+/* Bieżący język: wyróżniony, ale nie jest linkiem. */
+.lang-switch [aria-current] {
+  background: var(--color-surface);
+  color: var(--color-heading);
+  box-shadow: 0 0 0 1px var(--color-border);
+}
+
+/* Przełącznik motywu wymaga JavaScriptu, więc bez JS go nie pokazujemy.
+   Klasę .js dodaje na <html> plik theme.js. */
+.theme-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.js .theme-toggle {
+  display: inline-flex;
+}
+
+.theme-toggle:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.theme-toggle svg {
+  width: 1.0625rem;
+  height: 1.0625rem;
+}
+
+/* Ikona pokazuje motyw, na który przełączymy: w ciemnym słońce, w jasnym księżyc. */
+.icon-moon,
+[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+[data-theme="light"] .icon-moon {
+  display: block;
+}
+
+/* Przycisk menu (telefon i tablet). Wygląda jak przycisk motywu. Bez JavaScriptu
+   jest ukryty, a menu zostaje widoczne i przewija się w poziomie. */
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  padding: 0;
+  background: transparent;
+  color: var(--color-heading);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.js .nav-toggle {
+  display: inline-flex;
+}
+
+.nav-toggle:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.nav-toggle svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Ikona zależy od stanu: dwie kreski, gdy menu jest zwinięte, krzyżyk, gdy rozwinięte. */
+.nav-toggle .icon-close,
+.nav-toggle[aria-expanded="true"] .icon-open {
+  display: none;
+}
+
+.nav-toggle[aria-expanded="true"] .icon-close {
+  display: block;
+}
+
+/* Sekcja, którą akurat widać: link w kolorze nagłówków, z miedzianą kreską. */
+.site-nav a[aria-current] {
+  color: var(--color-heading);
+  background-size: 100% 1px;
+}
+
+/* Pasek postępu przewijania na dolnej krawędzi nagłówka. Tworzy go nav.js. */
+.scroll-progress {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* Wąski ekran z JavaScriptem: menu jest zwinięte, przycisk rozwija je jako
+   pionową listę pod nagłówkiem. Osobne zapytanie "max-width", żeby tych reguł
+   nie trzeba było cofać na szerokim ekranie. */
+@media (max-width: 59.99em) {
+  html.js {
+    scroll-padding-top: 5rem;
+  }
+
+  .js .site-nav {
+    display: none;
+    overflow: visible;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .js .site-nav.is-open {
+    display: block;
+  }
+
+  .js .site-nav ul {
+    flex-direction: column;
+    gap: 0;
+    padding: var(--space-2) 0 var(--space-2);
+  }
+
+  .js .site-nav li + li {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .js .site-nav a {
+    padding-block: var(--space-4);
+    font-size: 0.8125rem;
+    background-position: left calc(100% - 0.75rem);
+  }
+
+  .js .header-tools {
+    gap: var(--space-2);
+  }
+}
+
+/* Bardzo wąski telefon: obok znaku nie mieści się już adres, zostaje sam znak
+   (link nadal ma pełną nazwę w aria-label). */
+@media (max-width: 25.99em) {
+  .js .brand span {
+    display: none;
+  }
+}
+
+/* 5. HERO ------------------------------------------------------------------ */
+.hero {
+  position: relative;
+  padding-block: var(--space-7) var(--space-8);
+  /* Miękka poświata w prawym górnym rogu. Czysty gradient CSS, żadnego obrazka. */
+  background: radial-gradient(60rem 34rem at 88% -8%, var(--color-glow), transparent 70%);
+}
+
+.hero-inner {
+  display: grid;
+  gap: var(--space-7);
+  align-items: center;
+}
+
+/* Krótka miedziana kreska przed rolą. */
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  color: var(--color-accent);
+}
+
+/* Kreska dopiero od 40em (sekcja 8): na telefonie rola zajmuje całą szerokość. */
+.eyebrow::before {
+  content: "";
+  display: none;
+  flex: none;
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.hero h1 {
+  font-size: clamp(2.875rem, 11vw, 6.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+/* Nazwisko kursywą w kolorze miedzi: jedyny "ozdobnik" na stronie. */
+.name-accent {
+  color: var(--color-accent);
+  font-style: italic;
+}
+
+.hero-lead {
+  max-width: 35rem;
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: 1.1875rem;
+  line-height: 1.65;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+/* Trzy fakty pod spodem. Na telefonie jeden pod drugim, od 40em w trzech kolumnach. */
+.hero-facts {
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.hero-facts dt,
+.contact-list dt {
+  margin-bottom: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+.hero-facts dd {
+  color: var(--color-heading);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* Monogram: sam znak, kolory z palety przez klasy (SVG jest wpisany w HTML,
+   więc dziedziczy zmienne CSS i zmienia się razem z motywem).
+   Gruby miedziany pierścień, litera S w kolorze tekstu, litera C miedziana kursywą
+   (tak samo jak nazwisko w hero). W nagłówku i w hero to ten sam rysunek
+   (viewBox 120), różni się tylko rozmiarem. */
+/* "Pieczęć zgodności" w hero: monogram w środku, dookoła napis z normami
+   i regulacjami. Na telefonie jej nie ma (znak jest już w nagłówku), pokazujemy
+   ją od 60em. Napis powoli się obraca (sekcja 9). */
+.seal {
+  display: none;
+  width: 19rem;
+  height: auto;
+}
+
+.seal-ring {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 1;
+}
+
+.seal-ring-outer {
+  stroke: var(--color-border-strong);
+}
+
+.seal-text {
+  fill: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+/* Obrót wokół środka całego rysunku, a nie środka samego napisu. */
+.seal-spin {
+  transform-box: view-box;
+  transform-origin: center;
+}
+
+.monogram-ring {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 7;
+}
+
+/* Ta sama czcionka co nagłówki, żeby znak wyglądał identycznie na każdym systemie. */
+.monogram-letters {
+  fill: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: 54px;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+.monogram-c {
+  fill: var(--color-accent);
+  font-style: italic;
+}
+
+/* 6. SEKCJE ---------------------------------------------------------------- */
+/* Sekcje oddziela cienka linia, a co druga ma dodatkowo tło o pół tonu inne
+   (klasa .band-alt w HTML podmienia zmienną --color-bg tylko dla tej sekcji). */
+.section {
+  padding-block: var(--space-8);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+
+.section-inner {
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* Numer sekcji nad nagłówkiem, z krótką kreską (jak w hero). */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--color-accent);
+}
+
+.section-label::after {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.section h2 {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+}
+
+.section-intro {
+  max-width: 38rem;
+  margin-bottom: var(--space-7);
+  color: var(--color-text-muted);
+  font-size: 1.125rem;
+}
+
+/* O mnie: pierwszy akapit większy i szeryfowy, jak lid w gazecie. */
+.prose {
+  display: grid;
+  gap: var(--space-5);
+  max-width: 40rem;
+}
+
+.prose p {
+  color: var(--color-text-muted);
+}
+
+.prose p:first-child {
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: clamp(1.3125rem, 2.6vw, 1.625rem);
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
+/* Obszary: cztery grupy numerowane licznikiem CSS (01, 02...), bez numerów w HTML. */
+.area-grid {
+  display: grid;
+  gap: var(--space-7) var(--space-7);
+  counter-reset: obszar;
+}
+
+.area {
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.area h3 {
+  margin-bottom: var(--space-5);
+  font-size: 1.375rem;
+}
+
+.area h3::before {
+  counter-increment: obszar;
+  content: "0" counter(obszar);
+  display: block;
+  margin-bottom: var(--space-3);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tags li {
+  padding: 0.35em 0.9em;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* Doświadczenie: oś czasu.
+   Pionowa linia to lewa krawędź listy, kropki to pseudoelementy ::before. */
+.timeline {
+  display: grid;
+  gap: var(--space-7);
+  margin-left: 0.3125rem;
+  padding-left: var(--space-6);
+  border-left: 1px solid var(--color-border);
+}
+
+.timeline li {
+  position: relative;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  top: 0.35em;
+  /* Przesunięcie o padding listy + połowę kropki, żeby środek trafił w linię. */
+  left: calc(-1 * var(--space-6) - 0.3125rem - 0.5px);
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+}
+
+/* Pierwsza pozycja to obecna rola: kropka wypełniona, z delikatną obwódką. */
+.timeline li:first-child::before {
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px var(--color-bg), 0 0 0 5px var(--color-border);
+}
+
+/* Pierścień, który "pulsuje" wokół kropki obecnej roli (animacja w sekcji 9).
+   Bez animacji jest po prostu niewidoczny. */
+.timeline li:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0.35em;
+  left: calc(-1 * var(--space-6) - 0.3125rem - 0.5px);
+  width: 0.625rem;
+  height: 0.625rem;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timeline-meta {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.timeline h3 {
+  font-size: clamp(1.375rem, 3vw, 1.75rem);
+}
+
+.timeline-context {
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.timeline-note {
+  margin-top: var(--space-4);
+}
+
+/* Certyfikaty: lista z numerami z licznika CSS.
+   Na telefonie status stoi pod nazwą, od 40em w jednym wierszu po prawej (sekcja 8). */
+.cert-list {
+  border-top: 1px solid var(--color-border);
+  counter-reset: certyfikat;
+}
+
+.cert-list li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: var(--space-2) var(--space-3);
+  align-items: baseline;
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cert-list li::before {
+  counter-increment: certyfikat;
+  content: "0" counter(certyfikat);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+.cert-name {
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.cert-detail {
+  display: block;
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.status {
+  grid-column: 2;
+  justify-self: start;
+  padding: 0.35em 0.9em;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* "W trakcie" ma się odróżniać nie tylko kolorem: inny tekst i przerywana ramka. */
+.status-progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  border: 1px dashed var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* Mała kropka przy "w trakcie"; mruga powoli (sekcja 9). */
+.status-progress::before {
+  content: "";
+  width: 0.4375rem;
+  height: 0.4375rem;
+  background: currentColor;
+  border-radius: 50%;
+}
+
+.cert-list li:hover::before {
+  color: var(--color-accent);
+}
+
+/* Projekty */
+.card-grid {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Miedziana linia na górnej krawędzi karty, rozwija się po najechaniu. */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.card:hover {
+  border-color: var(--color-border-strong);
+}
+
+.card:hover::before {
+  transform: scaleX(1);
+}
+
+.card-empty::before {
+  display: none;
+}
+
+/* Selektor z .card na początku, żeby wygrać z ogólniejszym ".card p" niżej. */
+.card .card-kicker {
+  margin-bottom: var(--space-2);
+  color: var(--color-accent);
+}
+
+.card h3 {
+  font-size: 1.625rem;
+}
+
+.card p {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+/* margin-top: auto dociska tagi do dołu karty, więc w rzędzie równają się ze sobą. */
+.card .tags {
+  margin-top: auto;
+  padding-top: var(--space-4);
+}
+
+.card .tags li {
+  background: transparent;
+  font-size: 0.75rem;
+}
+
+/* Pusty szablon: przerywana ramka zamiast pełnej karty. */
+.card-empty {
+  background: transparent;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+/* Kontakt */
+.contact-list {
+  border-top: 1px solid var(--color-border);
+}
+
+.contact-list div {
+  display: grid;
+  gap: var(--space-1) var(--space-5);
+  padding-block: var(--space-5);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.contact-list dd {
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+}
+
+/* 7. STOPKA I 404 ---------------------------------------------------------- */
+.site-footer {
+  padding-block: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 0.6875rem;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-6);
+}
+
+.error-page {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+  padding-block: var(--space-9);
+}
+
+.error-page h1 {
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+  letter-spacing: -0.02em;
+}
+
+.error-page p {
+  max-width: 34rem;
+  color: var(--color-text-muted);
+}
+
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+}
+
+/* 8. PUNKTY ŁAMANIA --------------------------------------------------------
+   Podejście mobile-first: wszystko powyżej to układ na telefon (od 360 px),
+   a tutaj tylko dokładamy kolumny, gdy robi się miejsce. */
+@media (min-width: 40em) {
+  :root {
+    --gutter: 2rem;
+  }
+
+  .eyebrow::before {
+    display: block;
+  }
+
+  .area-grid,
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-facts {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .contact-list div {
+    grid-template-columns: 10rem 1fr;
+    align-items: baseline;
+  }
+
+  .cert-list li {
+    grid-template-columns: 2.5rem 1fr auto;
+  }
+
+  .status {
+    grid-column: 3;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 60em) {
+  html {
+    scroll-padding-top: 5.5rem;
+  }
+
+  :root {
+    --gutter: 2.5rem;
+  }
+
+  /* Boczne kolumny: dwa pionowe pasy przyklejone do lewej i prawej krawędzi okna,
+     które "oprawiają" treść jak marginesy w książce. To pseudoelementy <body>, więc
+     w HTML nic ich nie reprezentuje. Zajmują wolne miejsce obok treści; na węższym
+     ekranie zostaje z nich wąski pasek 1,5rem (mieści się w marginesie treści).
+     Leżą nad sekcjami, ale pod nagłówkiem, i nie przechwytują kliknięć. */
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    width: max(1.5rem, calc((100% - var(--content-width)) / 2));
+    background: var(--color-rail);
+    pointer-events: none;
+  }
+
+  body::before {
+    left: 0;
+    border-right: 1px solid var(--color-border);
+  }
+
+  body::after {
+    right: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  /* Na szerokim ekranie całe menu mieści się w nagłówku, przycisk jest zbędny. */
+  .js .nav-toggle {
+    display: none;
+  }
+
+  /* Jeden wiersz, bez zawijania: gdyby zabrakło miejsca, przewinie się sama nawigacja. */
+  .header-inner {
+    flex-wrap: nowrap;
+    gap: var(--space-5);
+    padding-block: var(--space-4);
+  }
+
+  /* Nawigacja wraca do jednego wiersza z marką i kontrolkami, maska już niepotrzebna. */
+  .site-nav {
+    order: 0;
+    width: auto;
+    min-width: 0;
+    margin-left: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .site-nav ul {
+    padding: var(--space-1);
+  }
+
+  .brand,
+  .header-tools {
+    flex: none;
+  }
+
+  .hero {
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr auto;
+    gap: var(--space-8);
+  }
+
+  .seal {
+    display: block;
+  }
+
+  .section {
+    padding-block: var(--space-10);
+  }
+
+  /* W wąskiej lewej kolumnie najdłuższy tytuł ("Doświadczenie") musi zmieścić się w jednym wierszu. */
+  .section h2 {
+    font-size: 2.25rem;
+  }
+
+  /* Nagłówek sekcji w lewej kolumnie, treść w prawej. */
+  .section-inner {
+    grid-template-columns: 17rem 1fr;
+    gap: var(--space-8);
+  }
+
+  /* Projekty: karty potrzebują szerokości, więc w tej sekcji nagłówek zostaje nad nimi,
+     a karty biorą całą szerokość w trzech kolumnach. Selektor :has() jest w @supports,
+     bo starsze przeglądarki go nie znają - one zostają przy dwóch kolumnach. */
+  @supports selector(:has(a)) {
+    .section-inner:has(.card-grid) {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+
+    .card-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+}
+
+@media (min-width: 75em) {
+  .header-inner {
+    gap: var(--space-6);
+  }
+
+  .site-nav ul {
+    gap: var(--space-6);
+  }
+
+  .section h2 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Od tej szerokości boczne kolumny są na tyle szerokie, że mieszczą pionowy napis.
+   Tekst jest ozdobą wpisaną w CSS (taki sam w obu językach); druga deklaracja "content"
+   podaje pusty tekst zastępczy, żeby czytniki ekranu go pomijały. */
+@media (min-width: 84em) {
+  body::before,
+  body::after {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  body::before {
+    content: "Sebastian Czupiński";
+    content: "Sebastian Czupiński" / "";
+    transform: rotate(180deg);
+    /* Po obrocie o 180 stopni lewa krawędź staje się prawą, więc linia zmienia stronę. */
+    border-right: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  body::after {
+    content: "Cybersecurity · GRC";
+    content: "Cybersecurity · GRC" / "";
+  }
+}
+
+/* 9. RUCH ------------------------------------------------------------------
+   Cały ruch jest tylko dla osób, które nie ograniczyły animacji w ustawieniach
+   systemu. Domyślnie strona nie animuje niczego i wszystko jest od razu widoczne. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  a,
+  .button,
+  .theme-toggle,
+  .tags li,
+  .card {
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.25s ease;
+  }
+
+  .site-nav a {
+    transition: color 0.2s ease, background-size 0.3s ease;
+  }
+
+  .button::after {
+    display: inline-block;
+  }
+
+  .button::after,
+  .card::before {
+    transition: transform 0.3s ease;
+  }
+
+  .button:hover::after {
+    transform: translateX(0.3em);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+  }
+
+  .card-empty:hover {
+    transform: none;
+  }
+
+  .tags li:hover {
+    border-color: var(--color-accent);
+  }
+
+  /* Dwa drobne, ciągłe ruchy: pierścień wokół kropki obecnej roli i kropka przy "w trakcie".
+     Celowo bez animacji wejścia, która startuje od przezroczystości: gdy karta
+     przeglądarki jest w tle, animacja stoi w miejscu i treść byłaby niewidoczna. */
+  .timeline li:first-child::after {
+    animation: puls 2.8s ease-out infinite;
+  }
+
+  .status-progress::before {
+    animation: mruganie 2.4s ease-in-out infinite;
+  }
+
+  /* Napis na pieczęci: jeden pełny obrót na dwie minuty. */
+  .seal-spin {
+    animation: obrot 120s linear infinite;
+  }
+}
+
+@keyframes obrot {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes puls {
+  from { opacity: 0.7; transform: scale(1); }
+  to { opacity: 0; transform: scale(3.2); }
+}
+
+@keyframes mruganie {
+  50% { opacity: 0.35; }
+}
+
+/* 10. KIERUNEK B "PLAKAT" (runda 2, 2026-11-15) -----------------------------
+   Nadpisuje kompozycję z sekcji 3-8 bez zmian w HTML: wielkie nazwisko,
+   nagłówki sekcji nad treścią, obszary w kolumnach, pozioma oś doświadczenia,
+   certyfikaty w dwóch kolumnach, projekty bez pudełek. Kolory wyłącznie ze
+   zmiennych, więc motyw jasny działa bez dodatkowych reguł.
+   Statycznie: ciągłe animacje są tu wyłączone do czasu akceptacji ruchu. */
+:root {
+  --content-width: 78rem;
+}
+
+/* Etykiety: jeden cichy głos bez wersalików. Mono zostaje tylko dla roli,
+   numerów sekcji i znaczników TODO. */
+.eyebrow,
+.section-label,
+.site-nav a,
+.lang-switch,
+.button,
+.status,
+.card-kicker,
+.timeline-meta,
+.hero-facts dt,
+.contact-list dt,
+.site-footer {
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.site-nav a {
+  font-size: 0.875rem;
+}
+
+.eyebrow,
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.button {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+/* Większe logo w nagłówku (było 2.25rem): znak ma być pierwszym, co widać. */
+.brand-mark {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+
+.brand {
+  gap: var(--space-4);
+  font-size: 0.9375rem;
+}
+
+.todo {
+  padding: 0.25rem 0.5rem;
+  border-color: var(--color-accent);
+  border-color: color-mix(in srgb, var(--color-accent) 50%, transparent);
+  border-radius: 2px;
+  font-size: 0.6875rem;
+}
+
+/* Hero */
+.hero {
+  padding-block: var(--space-7) var(--space-7);
+  background: none;
+}
+
+.seal,
+.eyebrow::before {
+  display: none;
+}
+
+.eyebrow {
+  margin-bottom: var(--space-5);
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.name-accent {
+  display: block;
+  margin-left: 1.5rem;
+}
+
+.hero-lead {
+  margin-top: var(--space-7);
+}
+
+/* Fakty jako tabela z liniami włosowymi, także na telefonie. */
+.hero-facts {
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin-top: var(--space-7);
+  padding-top: 0;
+  border-top: 0;
+}
+
+.hero-facts div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  align-items: baseline;
+  padding-block: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.hero-facts dt {
+  margin-bottom: 0;
+}
+
+/* Sekcje: nagłówek nad treścią, numer jako mały indeks obok tytułu. */
+.section {
+  padding-block: var(--space-8);
+}
+
+.section-inner {
+  gap: 2.5rem;
+}
+
+.section-inner > header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.section-label {
+  order: 2;
+  margin: 0.35rem 0 0;
+}
+
+.section-label::after {
+  content: none;
+}
+
+.section h2 {
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.section-intro {
+  margin-bottom: var(--space-6);
+}
+
+/* Obszary: bez liczników i pigułek, tematy jako lista z liniami. */
+.area-grid {
+  gap: var(--space-6);
+}
+
+.area {
+  border-top-color: var(--color-border-strong);
+}
+
+.area h3 {
+  margin-bottom: var(--space-4);
+  font-size: 1.5rem;
+}
+
+.area h3::before {
+  content: none;
+}
+
+.area .tags {
+  display: block;
+}
+
+.area .tags li {
+  padding: 0.45rem 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+}
+
+/* Doświadczenie: na telefonie wiersze, od 60em pozioma oś. */
+.timeline {
+  gap: 0;
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.timeline li {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.timeline li::before,
+.timeline li:first-child::after {
+  display: none;
+  animation: none;
+}
+
+.timeline-meta {
+  min-height: 1.75rem;
+  margin-bottom: var(--space-2);
+}
+
+.timeline h3 {
+  font-size: 1.625rem;
+}
+
+/* Certyfikaty: bez liczników, status jako zwykły tekst po prawej. */
+.cert-list {
+  border-top: 0;
+  counter-reset: none;
+}
+
+.cert-list li {
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 0;
+}
+
+.cert-list li::before {
+  content: none;
+}
+
+.cert-name {
+  font-size: 1.5rem;
+}
+
+.status {
+  grid-column: 2;
+  justify-self: end;
+  padding: 0.4rem 0 0;
+  border: 0;
+  border-radius: 0;
+}
+
+.status-progress {
+  border: 0;
+}
+
+.status-progress::before {
+  animation: none;
+}
+
+/* Projekty: bez pudełek, tylko linia nad każdym projektem. */
+.card-grid {
+  gap: var(--space-6);
+}
+
+.card {
+  padding: var(--space-5) 0 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.card::before {
+  display: none;
+}
+
+.card:hover {
+  transform: none;
+}
+
+.card-empty {
+  border-top-style: dashed;
+}
+
+.card .card-kicker {
+  margin-bottom: 0;
+}
+
+.card h3 {
+  font-size: 1.75rem;
+}
+
+.card .tags {
+  display: block;
+  color: var(--color-text-muted);
+}
+
+.card .tags li {
+  display: inline;
+  padding: 0;
+  border: 0;
+  font-size: 0.8125rem;
+}
+
+.card .tags li + li::before {
+  content: " · ";
+  content: " · " / "";
+}
+
+.site-footer {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 40em) {
+  .hero h1 {
+    font-size: 6rem;
+    line-height: 0.9;
+  }
+
+  .name-accent {
+    margin-left: 0.95em;
+  }
+}
+
+@media (min-width: 60em) {
+  /* Bez bocznych pasów: treść dostaje całą szerokość. */
+  body::before,
+  body::after {
+    display: none;
+  }
+
+  .hero {
+    padding-block: 5rem 4.5rem;
+  }
+
+  .hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-inner > div {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--space-5);
+  }
+
+  .eyebrow,
+  .hero h1 {
+    grid-column: 1 / -1;
+  }
+
+  .hero h1 {
+    font-size: clamp(5.5rem, 13vw, 11rem);
+    line-height: 0.86;
+    letter-spacing: -0.035em;
+  }
+
+  .hero-lead {
+    grid-column: 1 / 7;
+    grid-row: 3;
+    max-width: none;
+    margin-top: 4.5rem;
+    font-size: 1.25rem;
+  }
+
+  .hero-actions {
+    grid-column: 1 / 7;
+    grid-row: 4;
+  }
+
+  .hero-facts {
+    grid-column: 8 / -1;
+    grid-row: 3 / span 2;
+    align-self: start;
+    margin-top: 4.5rem;
+  }
+
+  .section {
+    padding-block: 6rem;
+  }
+
+  .section-inner {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .section h2 {
+    font-size: 2.75rem;
+  }
+
+  .section-intro {
+    font-size: 1.25rem;
+  }
+
+  .prose {
+    grid-template-columns: 7fr 5fr;
+    column-gap: 4rem;
+    max-width: none;
+  }
+
+  .prose p:first-child {
+    grid-row: span 2;
+    font-size: 1.875rem;
+    line-height: 1.28;
+    letter-spacing: -0.01em;
+  }
+
+  .area-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .area h3 {
+    min-height: 3.3rem;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--space-6);
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .timeline li {
+    padding-block: var(--space-6) 0;
+    border-top: 0;
+  }
+
+  .timeline li::before {
+    display: block;
+    top: -5px;
+    left: 0;
+    width: 9px;
+    height: 9px;
+  }
+
+  .timeline li:first-child::before {
+    box-shadow: none;
+  }
+
+  .timeline h3 {
+    font-size: 1.75rem;
+  }
+
+  .cert-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 4rem;
+  }
+
+  .cert-name {
+    font-size: 1.75rem;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .section-inner:has(.card-grid) {
+    gap: 2.5rem;
+  }
+
+  .contact-list dd {
+    font-size: 1.5rem;
+  }
+}
+
+/* 11. USŁUGI, LINKI I ROZBUDOWANE DOŚWIADCZENIE (2026-11-16) ------------------
+   Nowe sekcje dodane po uzupełnieniu treści z CV. Trzymają styl kierunku B:
+   linie zamiast pudełek, kolory wyłącznie ze zmiennych. */
+
+/* Usługi: kolumny z linią u góry, link kontaktowy dociśnięty do dołu,
+   żeby w rzędzie wszystkie linki stały na jednej wysokości. */
+.service-list {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.service h3 {
+  font-size: 1.5rem;
+}
+
+.service p {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.service a {
+  margin-top: auto;
+  padding-top: var(--space-3);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Doświadczenie: każda rola ma teraz listę zadań, więc pozycje stoją jedna
+   pod drugą (wcześniej trzy kolumny obok siebie). Selektor "> li" dotyczy
+   tylko pozycji osi czasu, a nie punktów zagnieżdżonej listy. */
+.timeline-context {
+  color: var(--color-text-muted);
+}
+
+.timeline-points {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-left: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  /* Półpauza jako znak wypunktowania; przeglądarki bez tej składni pokażą zwykłą kropkę. */
+  list-style: disc;
+  list-style: "–  ";
+}
+
+/* Punkty listy nie są pozycjami osi czasu: bez linii, odstępów i kropek. */
+.timeline .timeline-points li {
+  padding: 0;
+  border: 0;
+}
+
+.timeline .timeline-points li::before,
+.timeline .timeline-points li::after {
+  content: none;
+}
+
+.timeline-points li::marker {
+  color: var(--color-accent);
+}
+
+.timeline .timeline-note {
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 40em) {
+  .service-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 60em) {
+  .timeline {
+    grid-template-columns: 1fr;
+    border-top: 0;
+  }
+
+  /* Lewa kolumna: daty, stanowisko, firma. Prawa: zadania. */
+  .timeline > li {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: 4rem;
+    align-items: start;
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .timeline > li:first-child {
+    border-top-color: var(--color-border-strong);
+  }
+
+  .timeline > li::before {
+    display: none;
+  }
+
+  .timeline-points,
+  .timeline .timeline-note {
+    margin-top: 0.35rem;
+  }
+}
+
+@media (min-width: 75em) {
+  .service-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Pieczęć wraca do hero (2026-11-16): stoi po prawej stronie nazwiska, na wysokości
+   tytułu. Tylko tam, gdzie obok wielkiego nazwiska zostaje wolne miejsce. */
+@media (min-width: 70em) {
+  .hero-inner {
+    position: relative;
+  }
+
+  .seal {
+    display: block;
+    position: absolute;
+    top: 3rem;
+    right: 2.5rem; /* równo z prawą krawędzią treści (margines .container) */
+    width: clamp(13rem, 19vw, 17rem);
+  }
+}
+
+@media print {
+  body::before,
+  body::after,
+  .site-header,
+  .skip-link,
+  .hero-actions {
+    display: none;
+  }
+
+  * {
+    animation: none !important;
+  }
+}

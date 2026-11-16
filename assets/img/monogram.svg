@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Monogram SC">
+  <!-- Monogram SC jako samodzielny plik (np. do stopki maila albo profilu).
+       Na stronie ten sam znak jest wpisany w HTML i bierze kolory z CSS.
+       Wersja na ciemne tło; na jasne zamień #f4ede0 na #173b2c i #d4935a na #8f4e1b. -->
+  <circle cx="60" cy="60" r="52.5" fill="none" stroke="#d4935a" stroke-width="7"/>
+  <text x="59" y="78" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', Palatino, serif" font-size="54" letter-spacing="-1" fill="#f4ede0">S<tspan fill="#d4935a" font-style="italic">C</tspan></text>
+</svg>

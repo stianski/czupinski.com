@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!-- Wersja angielska. Struktura jest identyczna jak w /index.html, różni się treść,
+     identyfikatory kotwic i ścieżki do zasobów (../ bo plik leży w katalogu /en/). -->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Polityka CSP opisana w /index.html. Hash jest inny, bo blok JSON-LD ma inną treść. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-ThbtNAW8D0y4aCmv2MQo83vtmbfObF8yWcRM6Jve+NU='; style-src 'self'; img-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Sebastian Czupiński | Cybersecurity Senior Consultant (GRC)</title>
+  <meta name="description" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC). ISO/IEC 27001, ISMS, risk management, TPRM, DORA, NIS2.">
+  <meta name="author" content="Sebastian Czupiński">
+  <meta name="theme-color" content="#0f1f1a">
+
+  <link rel="canonical" href="https://czupinski.com/en/">
+  <link rel="alternate" hreflang="pl" href="https://czupinski.com/">
+  <link rel="alternate" hreflang="en" href="https://czupinski.com/en/">
+  <link rel="alternate" hreflang="x-default" href="https://czupinski.com/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="czupinski.com">
+  <meta property="og:title" content="Sebastian Czupiński | Cybersecurity Senior Consultant (GRC)">
+  <meta property="og:description" content="Information security from the governance, risk and compliance side: ISMS, risk assessment, third-party risk, DORA and NIS2.">
+  <meta property="og:url" content="https://czupinski.com/en/">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="pl_PL">
+  <meta property="og:image" content="https://czupinski.com/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC)">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../assets/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../assets/fonts/newsreader-latin-ext-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/theme.js"></script>
+  <script src="../assets/js/nav.js" defer></script>
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Sebastian Czupiński","jobTitle":"Cybersecurity Senior Consultant (GRC)","url":"https://czupinski.com/en/","address":{"@type":"PostalAddress","addressCountry":"PL"},"knowsLanguage":["pl","en"],"knowsAbout":["ISO/IEC 27001","ISMS","Information security risk management","Third-party risk management (TPRM)","DORA","NIS2","Audit","Compliance","Security policies and procedures","Security governance","Business continuity","Security awareness"],"sameAs":["https://www.linkedin.com/in/stianski"]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Sebastian Czupiński, back to top">
+        <svg class="brand-mark" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+          <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+        </svg>
+        <span>czupinski.com</span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Page sections">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#areas">Areas</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#certifications">Certifications</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <nav class="lang-switch" aria-label="Language">
+          <a href="../index.html" lang="pl" hreflang="pl" aria-label="Wersja polska">PL</a>
+          <span aria-current="true" lang="en">EN</span>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle
+                aria-label="Switch to light theme"
+                data-label-light="Switch to light theme"
+                data-label-dark="Switch to dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" type="button" data-nav-toggle
+                aria-controls="menu" aria-expanded="false"
+                aria-label="Open menu"
+                data-label-open="Open menu"
+                data-label-close="Close menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M4 8h16M4 16h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- 1. HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Cybersecurity Senior Consultant (GRC)</p>
+          <h1 id="hero-title">Sebastian <span class="name-accent">Czupiński</span></h1>
+          <p class="hero-lead">I work on the governance, risk and compliance side of information security: from ISMS and risk assessment to third-party risk, DORA and NIS2.</p>
+          <p class="hero-actions">
+            <a class="button" href="#contact">Contact</a>
+            <a class="button button-ghost" href="#experience">Experience</a>
+          </p>
+          <dl class="hero-facts">
+            <div><dt>location</dt><dd>Poland</dd></div>
+            <div><dt>languages</dt><dd>Polish, English</dd></div>
+            <div><dt>experience</dt><dd>about 7 years in cybersecurity</dd></div>
+          </dl>
+        </div>
+        <svg class="seal" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+          <defs>
+            <path id="seal-path" d="M24 120A96 96 0 1 1 216 120A96 96 0 1 1 24 120"/>
+          </defs>
+          <circle class="seal-ring seal-ring-outer" cx="120" cy="120" r="116"/>
+          <circle class="seal-ring" cx="120" cy="120" r="78"/>
+          <g class="seal-spin">
+            <text class="seal-text"><textPath href="#seal-path" textLength="596" lengthAdjust="spacing">ISO/IEC 27001 &#8226; ISO 22301 &#8226; DORA &#8226; NIS2 &#8226; KSC &#8226; ISO/IEC 27001 &#8226; ISO 22301 &#8226; DORA &#8226; NIS2 &#8226; KSC &#8226;</textPath></text>
+          </g>
+          <g transform="translate(60 60)">
+            <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+            <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT -->
+    <section class="section band-alt" id="about" aria-labelledby="about-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">01</span>
+          <h2 id="about-title">About</h2>
+        </header>
+        <div class="prose">
+          <p>I have spent about seven years in cybersecurity. Today I am a Senior Consultant in GRC; before that I was an Information Systems Security Officer in the insurance sector and an IT Security Specialist on public-sector projects.</p>
+          <p>My work sits in the part of security that lives in processes and documents: an ISMS built on ISO/IEC 27001, risk management, third-party risk, audit, and regulatory requirements such as DORA and NIS2.</p>
+          <p>I work in Polish and English. I am currently preparing for the CISSP exam.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SERVICES
+         Nowa usługa = skopiuj cały blok <article class="service"> ... </article>.
+         Pamiętaj o tej samej zmianie w /index.html. -->
+    <section class="section" id="services" aria-labelledby="services-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">02</span>
+          <h2 id="services-title">Services</h2>
+        </header>
+        <div>
+          <p class="section-intro">What I can help with. We always agree the scope first, after a short conversation.</p>
+          <div class="service-list">
+            <article class="service">
+              <h3>NIS2 / KSC gap analysis</h3>
+              <p>A check of which requirements of the NIS2 Directive and the Polish KSC Act are already met and which are missing. The result is a list of gaps and a prioritised action plan.</p>
+              <a href="#contact">Ask about this service</a>
+            </article>
+            <article class="service">
+              <h3>ISMS based on ISO/IEC 27001</h3>
+              <p>Designing or tidying up an information security management system: scope, roles, risk methodology, policies and procedures. Also an internal audit ahead of certification.</p>
+              <a href="#contact">Ask about this service</a>
+            </article>
+            <article class="service">
+              <h3>Third-party risk (TPRM)</h3>
+              <p>A supplier assessment process: due diligence, security assessments, risk scoring and remediation tracking. Also in support of DORA requirements.</p>
+              <a href="#contact">Ask about this service</a>
+            </article>
+            <article class="service">
+              <h3>Business continuity based on ISO 22301</h3>
+              <p>Business continuity and recovery plans, response playbooks and exercises. Also an internal audit of the business continuity management system.</p>
+              <a href="#contact">Ask about this service</a>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. AREAS -->
+    <section class="section band-alt" id="areas" aria-labelledby="areas-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">03</span>
+          <h2 id="areas-title">Areas</h2>
+        </header>
+        <div>
+          <p class="section-intro">The topics I work on, in four groups.</p>
+          <div class="area-grid">
+            <div class="area">
+              <h3>Governance and management system</h3>
+              <ul class="tags">
+                <li>ISO/IEC 27001</li>
+                <li>ISMS</li>
+                <li>security governance</li>
+                <li>security policies and procedures</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Risk</h3>
+              <ul class="tags">
+                <li>information security risk management</li>
+                <li>TPRM (third-party risk)</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Regulation and compliance</h3>
+              <ul class="tags">
+                <li>DORA</li>
+                <li>NIS2 / KSC</li>
+                <li>compliance</li>
+                <li>audit</li>
+              </ul>
+            </div>
+            <div class="area">
+              <h3>Continuity and people</h3>
+              <ul class="tags">
+                <li>business continuity</li>
+                <li>security awareness</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. EXPERIENCE -->
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">04</span>
+          <h2 id="experience-title">Experience</h2>
+        </header>
+        <ol class="timeline">
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">November 2026 – present</p>
+              <h3>Senior Compliance Specialist</h3>
+              <p class="timeline-context">technology company serving financial markets</p>
+            </div>
+            <ul class="timeline-points">
+              <li>Responding to customer security questionnaires and reporting on compliance and metrics to management.</li>
+              <li>Internal control testing and maintaining compliance with ISO/IEC 27001, SOC 2, DORA, NIS2 and GDPR, including audit coordination.</li>
+              <li>The risk assessment process: identifying, evaluating and mitigating risks, and recommending solutions for security issues.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">November 2025 – November 2026</p>
+              <h3>Cybersecurity Senior Consultant</h3>
+              <p class="timeline-context">building materials manufacturer</p>
+            </div>
+            <ul class="timeline-points">
+              <li>Deploying and improving an ISMS across a large, complex organisation, working with control owners and risk owners.</li>
+              <li>Information security risk management and third-party risk processes: due diligence, security assessments, remediation tracking.</li>
+              <li>Translating regulations and standards (including NIS2, DORA, CRA and ISO/IEC 27001) into policies, standards and controls.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">June 2023 – November 2025</p>
+              <h3>Information Systems Security Officer</h3>
+              <p class="timeline-context">insurance sector</p>
+            </div>
+            <ul class="timeline-points">
+              <li>The ISMS governance and operating model: scope, ownership, risk methodology, controls and reporting.</li>
+              <li>Coordinating incident response: mitigation, root cause analysis, and reports for leadership and the regulator.</li>
+              <li>An organisation-wide security awareness programme, including presentations and phishing simulations.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="timeline-head">
+              <p class="timeline-meta">May 2019 – June 2023</p>
+              <h3>IT Security Specialist</h3>
+              <p class="timeline-context">global IT services provider</p>
+            </div>
+            <ul class="timeline-points">
+              <li>System and application hardening, vulnerability assessments and access control across government projects.</li>
+              <li>Managing the security patch lifecycle, with 95% of updates deployed on time.</li>
+              <li>Contributing to business continuity and disaster recovery planning: controls, response playbooks, exercises.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 6. CERTIFICATIONS -->
+    <section class="section band-alt" id="certifications" aria-labelledby="certifications-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">05</span>
+          <h2 id="certifications-title">Certifications</h2>
+        </header>
+        <ul class="cert-list">
+          <li>
+            <span class="cert-name">ISO/IEC 27001 Lead Auditor</span>
+            <span class="status">certified</span>
+          </li>
+          <li>
+            <span class="cert-name">ISO 22301 Lead Auditor</span>
+            <span class="status">certified</span>
+          </li>
+          <li>
+            <span class="cert-name">CompTIA Security+</span>
+            <span class="status">certified</span>
+          </li>
+          <li>
+            <span class="cert-name">Microsoft SC-900
+              <span class="cert-detail">Security, Compliance, and Identity Fundamentals</span>
+            </span>
+            <span class="status">certified</span>
+          </li>
+          <li>
+            <span class="cert-name">CISSP
+              <span class="cert-detail">I am preparing for the exam and do not hold the certification yet.</span>
+            </span>
+            <span class="status status-progress">in progress</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 7. PROJECTS
+         Nowy projekt = skopiuj cały blok <article class="card"> ... </article>
+         i podmień treść. Pamiętaj o tej samej zmianie w /index.html. -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">06</span>
+          <h2 id="projects-title">Projects</h2>
+        </header>
+        <div class="card-grid">
+          <article class="card">
+            <p class="card-kicker">self-hosted server</p>
+            <h3>SillyTavern</h3>
+            <p>A private installation of SillyTavern, an interface for chatting with language models, on my own VPS. The service runs in Docker and is reachable only over a private Tailscale network.</p>
+            <p>A firewall blocks all traffic from the internet, I log in to the server with an SSH key only, security updates install automatically and a backup is taken every day. Images are generated by ComfyUI on my own computer, connected to the server over the same network.</p>
+            <ul class="tags">
+              <li>Docker</li>
+              <li>Tailscale</li>
+              <li>UFW</li>
+              <li>SSH</li>
+              <li>ComfyUI</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <p class="card-kicker">czupinski.com</p>
+            <h3>This site</h3>
+            <p>Static HTML and CSS, with no frameworks and no build step. No cookies, no trackers and nothing loaded from third-party servers. JavaScript only handles the theme and navigation, and the site still works without it.</p>
+            <p>A strict Content-Security-Policy without <code>unsafe-inline</code>, a <a href="../.well-known/security.txt">security.txt</a> file that follows RFC 9116, and colour contrast checked against WCAG AA.</p>
+            <ul class="tags">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>CSP</li>
+              <li>security.txt</li>
+            </ul>
+          </article>
+
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: category]</span></p>
+            <h3><span class="todo">[TODO: project name]</span></h3>
+            <p><span class="todo">[TODO: 2–3 sentences on what it is and what I did in it]</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. LINKS: miejsce na promowane odnośniki (inne strony, profile, publikacje).
+         Wypełnienie jak w /index.html: nazwę owiń linkiem z rel="noopener noreferrer". -->
+    <section class="section band-alt" id="links" aria-labelledby="links-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">07</span>
+          <h2 id="links-title">More from me</h2>
+        </header>
+        <div class="card-grid">
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: type, e.g. site, blog, tool]</span></p>
+            <h3><span class="todo">[TODO: name and address of the first link]</span></h3>
+            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
+          </article>
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: type]</span></p>
+            <h3><span class="todo">[TODO: name and address of the second link]</span></h3>
+            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
+          </article>
+          <article class="card card-empty">
+            <p class="card-kicker"><span class="todo">[TODO: type]</span></p>
+            <h3><span class="todo">[TODO: name and address of the third link]</span></h3>
+            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. CONTACT -->
+    <section class="section" id="contact" aria-labelledby="contact-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">08</span>
+          <h2 id="contact-title">Contact</h2>
+        </header>
+        <div>
+          <p class="section-intro">Email or LinkedIn works best. There is no contact form, because there is no backend behind this site.</p>
+          <dl class="contact-list">
+            <div><dt>email</dt><dd><a href="mailto:kontakt@czupinski.com">kontakt@czupinski.com</a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/stianski" rel="noopener noreferrer">linkedin.com/in/stianski</a></dd></div>
+            <div><dt>GitHub</dt><dd><span class="todo">[TODO: account does not exist yet]</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Sebastian Czupiński</p>
+      <p>No cookies, no trackers. <a href="../.well-known/security.txt">security.txt</a></p>
+    </div>
+  </footer>
+</body>
+</html>

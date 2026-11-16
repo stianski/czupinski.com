@@ -1,0 +1,5 @@
+# Git ma sam rozpoznawać pliki tekstowe i trzymać w repozytorium końce linii LF.
+* text=auto eol=lf
+# Skrypty PowerShell zostają z końcami linii Windows.
+*.ps1 text eol=crlf
+*.png binary

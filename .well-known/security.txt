@@ -1,0 +1,10 @@
+# security.txt dla czupinski.com (RFC 9116)
+# https://www.rfc-editor.org/rfc/rfc9116
+#
+Contact: mailto:kontakt@czupinski.com
+
+# Data, po której plik należy uznać za nieaktualny. Odnawiaj raz w roku.
+Expires: 2027-11-15T00:00:00Z
+
+Preferred-Languages: pl, en
+Canonical: https://czupinski.com/.well-known/security.txt
