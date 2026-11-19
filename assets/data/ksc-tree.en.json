@@ -1,0 +1,100 @@
+{
+  "version": "0.2.0",
+  "updated": "2026-11-18",
+  "status": "Approved on 19.11.2026 by Sebastian Czupiński. Translation of tree.json; content compared on 18.11.2026 with Dz.U. 2026 item 252 and Annex I to Regulation 651/2014/EU (report: docs/05-weryfikacja-testu-ksc.md)",
+  "source": "Basis: the Polish Act on the National Cybersecurity System as amended by the Act of 23 January 2026 (Dz.U. 2026 item 252), Articles 5, 7c, 15 and 16 and Annexes 1 and 2; size thresholds from Article 2 of Annex I to Regulation 651/2014/EU.",
+  "disclaimer": "The result is indicative only and does not constitute legal advice. The status of an entity is determined by the provisions of the Polish Act on the National Cybersecurity System (KSC Act).",
+  "questions": [
+    {
+      "id": "public",
+      "short": "Public entity",
+      "text": "Is the organisation a public entity (e.g. a government office, research institute, local government budgetary unit, municipal company)?",
+      "options": [{ "v": "tak", "label": "Yes" }, { "v": "nie", "label": "No" }]
+    },
+    {
+      "id": "special",
+      "short": "Special activity",
+      "multi": true,
+      "text": "Does the organisation carry out any of these activities?",
+      "hint": "The Act gives them a status under separate rules, in most cases regardless of company size.",
+      "options": [
+        { "v": "dns", "short": "DNS or TLD registry", "label": "DNS service provider or top-level domain (TLD) name registry" },
+        { "v": "rejestrator", "short": "Domain name registration", "label": "Entity providing domain name registration services" },
+        { "v": "zaufanie_kwal", "short": "Qualified trust services", "label": "Qualified trust service provider" },
+        { "v": "zaufanie_niekwal", "short": "Non-qualified trust services", "label": "Non-qualified trust service provider" },
+        { "v": "telekom", "short": "Electronic communications", "label": "Electronic communications undertaking" },
+        { "v": "mssp", "short": "Managed security services", "label": "Managed security service provider" },
+        { "v": "krytyczny", "label": "Critical entity" },
+        { "v": "jadrowy_operator", "label": "Operator of a nuclear energy facility" },
+        { "v": "jadrowy_inwestor", "short": "Investor in a nuclear energy facility", "label": "Investor in a nuclear energy facility holding a decision-in-principle" },
+        { "v": "brak", "label": "None of the above", "exclusive": true }
+      ]
+    },
+    {
+      "id": "sector",
+      "short": "Sector",
+      "text": "In which sector does the organisation operate?",
+      "hint": "The Annexes list types of entities, not a company's main line of business, so check secondary activities as well. If you operate in sectors from both Annexes, choose Annex 1.",
+      "groups": [
+        {
+          "label": "Sectors listed in Annex 1",
+          "v": "A1",
+          "items": ["Energy (mining, electricity, heat, oil and fuels, gas, nuclear energy, hydrogen)", "Transport (air, rail, water, road)", "Banking and financial market infrastructure", "Health care", "Supply and distribution of drinking water", "Collective waste water disposal", "Digital infrastructure (including cloud computing, data centres, content delivery networks, internet exchange points)", "ICT service management (managed service providers)", "Space"]
+        },
+        {
+          "label": "Sectors listed in Annex 2",
+          "v": "A2",
+          "items": ["Postal services", "Nuclear energy investments", "Waste management", "Manufacture, production and distribution of chemicals", "Production, processing and distribution of food", "Manufacturing (medical devices, computers and electronic and optical products, electrical equipment, machinery and equipment, motor vehicles, trailers and semi-trailers, other transport equipment)", "Digital providers (online marketplaces, online search engines, social networking service platforms)", "Research (research organisations)"]
+        }
+      ],
+      "options": [
+        { "v": "A1", "short": "Annex 1", "label": "A sector listed in Annex 1" },
+        { "v": "A2", "short": "Annex 2", "label": "A sector listed in Annex 2" },
+        { "v": "brak", "label": "None of the listed sectors" },
+        { "v": "niepewne", "label": "I am not sure" }
+      ]
+    },
+    {
+      "id": "size",
+      "short": "Size of the enterprise",
+      "text": "What is the size of the enterprise?",
+      "hint": "Choose the first category you fit into. Add the figures of linked and partner enterprises, unless your information system is independent of theirs or you do not provide services jointly with them.",
+      "options": [
+        { "v": "mikro", "short": "Micro", "label": "Micro: fewer than 10 people and turnover or balance sheet total of up to EUR 2 million" },
+        { "v": "male", "short": "Small", "label": "Small: fewer than 50 people and turnover or balance sheet total of up to EUR 10 million" },
+        { "v": "srednie", "short": "Medium", "label": "Medium: fewer than 250 people and turnover of up to EUR 50 million or balance sheet total of up to EUR 43 million" },
+        { "v": "duze", "short": "Large", "label": "Large: at least 250 people, or turnover above EUR 50 million and balance sheet total above EUR 43 million" }
+      ]
+    },
+    {
+      "id": "ict",
+      "short": "ICT services for other entities",
+      "text": "Does the organisation provide ICT services to other entities, including as a secondary activity or solely within a corporate group (e.g. systems administration, hosting, IT support)?",
+      "options": [{ "v": "tak", "label": "Yes" }, { "v": "nie", "label": "No" }]
+    },
+    {
+      "id": "clients",
+      "short": "Customers in covered sectors",
+      "text": "Do the organisation's customers include entities from the sectors listed earlier (e.g. energy, transport, health care, water supply, public administration)?",
+      "options": [{ "v": "tak", "label": "Yes" }, { "v": "nie", "label": "No" }, { "v": "niewiem", "label": "I don't know" }]
+    }
+  ],
+  "outcomes": {
+    "PUBLICZNY": { "title": "Public entity — separate rules", "emphasis": "separate rules", "text": "Public entities listed in Annex 1 are essential entities regardless of size. Local government budgetary units and establishments, local government cultural institutions and municipal companies that perform public tasks using information systems are important entities and apply the information security management system set out in Annex 4. This test does not determine which group you belong to." },
+    "KLUCZOWY": { "title": "Probably an essential entity", "emphasis": "essential entity", "text": "Your answers point to the criteria in Article 5(1) of the Act: a large enterprise in a sector listed in Annex 1, or an activity to which the Act gives the status of an essential entity. This means the full set of statutory obligations and a security audit at least once every 3 years." },
+    "WAZNY": { "title": "Probably an important entity", "emphasis": "important entity", "text": "Your answers point to the criteria in Article 5(2) of the Act: a medium-sized enterprise in a sector listed in Annex 1, a medium-sized or large enterprise in a sector listed in Annex 2, or an activity to which the Act gives the status of an important entity. The obligations are similar to those of an essential entity, without the mandatory periodic audit." },
+    "ZA_MALY": { "title": "You probably do not fall under the Act because of your size", "emphasis": "do not fall under the Act", "text": "You operate in a sector covered by the Act, but micro and small enterprises are, as a rule, not subject to it. Check, however, whether you exceed the thresholds once linked and partner enterprises are included." },
+    "ANALIZA": { "title": "An individual analysis is required", "emphasis": "individual analysis", "text": "The answers do not allow the status to be indicated reliably. The most common reasons are uncertainty about the sector, or ICT services provided to other entities: managed service providers are listed in Annex 1." },
+    "NIE": { "title": "You probably do not fall under the Act directly", "emphasis": "do not fall under the Act", "text": "No activity in the sectors covered by the Act was indicated, nor any activity to which the Act gives a status regardless of sector." }
+  },
+  "notes": {
+    "lancuch": "Your customers may be subject to the Act. They have to look after the security of their supply chain, so you may receive security questionnaires and contractual requirements even if you are not subject to the provisions yourself.",
+    "termin": "An application for entry in the register of essential and important entities is filed within 6 months of meeting the criteria. Entities that met them on 3 April 2026 follow the schedule announced by the minister responsible for digital affairs. If you are not in the register, check your deadline first.",
+    "wdrozenie": "Entities that met the criteria on 3 April 2026 must implement the obligations in Chapter 3 of the Act (including the information security management system and incident handling) by 3 April 2027. Others have 12 months from meeting the criteria."
+  },
+  "noteLabels": {
+    "lancuch": "supply chain",
+    "termin": "register entry",
+    "wdrozenie": "implementation"
+  }
+}

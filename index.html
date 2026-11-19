@@ -183,6 +183,9 @@
             <article class="service">
               <h3>Analiza luk NIS2 / KSC</h3>
               <p>Sprawdzenie, które wymagania dyrektywy NIS2 i ustawy o KSC są już spełnione, a których brakuje. Wynik to lista luk i plan działań ułożony według priorytetów.</p>
+              <!-- Link do narzędzia stoi nad linkiem kontaktowym, żeby "Zapytaj o tę usługę" było
+                   w jednej linii we wszystkich kartach. -->
+              <a href="narzedzia/czy-podlegam-pod-ksc/index.html">Test: czy podlegasz ustawie o KSC?</a>
               <a href="#kontakt">Zapytaj o tę usługę</a>
             </article>
             <article class="service">
@@ -379,7 +382,7 @@
           <article class="card">
             <p class="card-kicker">czupinski.com</p>
             <h3>Ta strona</h3>
-            <p>Statyczny HTML i CSS, bez frameworków i bez kroku budowania. Żadnych ciasteczek, trackerów ani zasobów z zewnętrznych serwerów. JavaScript obsługuje tylko motyw i nawigację, a bez niego strona nadal działa.</p>
+            <p>Statyczny HTML i CSS, bez frameworków i bez kroku budowania. Żadnych ciasteczek, trackerów ani zasobów z zewnętrznych serwerów. JavaScript obsługuje motyw, nawigację i test KSC, a bez niego strona główna nadal działa.</p>
             <p>Restrykcyjna polityka Content-Security-Policy bez <code>unsafe-inline</code>, plik <a href=".well-known/security.txt">security.txt</a> zgodny z RFC 9116 i kontrast policzony pod WCAG AA.</p>
             <ul class="tags">
               <li>HTML</li>
@@ -389,51 +392,29 @@
             </ul>
           </article>
 
-          <!-- Pusty szablon na kolejny projekt. -->
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: kategoria]</span></p>
-            <h3><span class="todo">[TODO: nazwa projektu]</span></h3>
-            <p><span class="todo">[TODO: 2–3 zdania o tym, co to jest i co w nim zrobiłem]</span></p>
+          <article class="card">
+            <p class="card-kicker">narzędzie</p>
+            <h3><a href="narzedzia/czy-podlegam-pod-ksc/index.html">Test: czy podlegasz ustawie o KSC?</a></h3>
+            <p>Sześć pytań o rodzaj działalności, sektor i wielkość firmy. Wynik liczy drzewo decyzyjne oparte na art. 5 ustawy o KSC, a nie model językowy, więc te same odpowiedzi zawsze dają ten sam wynik.</p>
+            <p>Działa w całości w przeglądarce: odpowiedzi nie są nigdzie wysyłane ani zapisywane.</p>
+            <ul class="tags">
+              <li>NIS2 / KSC</li>
+              <li>JavaScript</li>
+              <li>testy automatyczne</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 8. LINKI: miejsce na promowane odnośniki (inne strony, profile, publikacje).
-         Wypełnienie: zamień znaczniki na treść, a nazwę owiń linkiem, np.
-         <h3><a href="https://adres" rel="noopener noreferrer">Nazwa</a></h3>
-         Niepotrzebne karty usuń w całości. -->
-    <section class="section band-alt" id="linki" aria-labelledby="linki-tytul">
+    <!-- Sekcja "Więcej ode mnie" (promowane odnośniki) została usunięta 19.11.2026, bo nie było
+         czym jej wypełnić. Wzór do przywrócenia jest w historii Gita (commit baf159d). -->
+
+    <!-- 8. KONTAKT -->
+    <section class="section band-alt" id="kontakt" aria-labelledby="kontakt-tytul">
       <div class="container section-inner">
         <header>
           <span class="section-label" aria-hidden="true">07</span>
-          <h2 id="linki-tytul">Więcej ode mnie</h2>
-        </header>
-        <div class="card-grid">
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: rodzaj, np. strona, blog, narzędzie]</span></p>
-            <h3><span class="todo">[TODO: nazwa i adres pierwszego linku]</span></h3>
-            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
-          </article>
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: rodzaj]</span></p>
-            <h3><span class="todo">[TODO: nazwa i adres drugiego linku]</span></h3>
-            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
-          </article>
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: rodzaj]</span></p>
-            <h3><span class="todo">[TODO: nazwa i adres trzeciego linku]</span></h3>
-            <p><span class="todo">[TODO: jedno zdanie, co tam jest]</span></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. KONTAKT -->
-    <section class="section" id="kontakt" aria-labelledby="kontakt-tytul">
-      <div class="container section-inner">
-        <header>
-          <span class="section-label" aria-hidden="true">08</span>
           <h2 id="kontakt-tytul">Kontakt</h2>
         </header>
         <div>
@@ -442,7 +423,7 @@
           <dl class="contact-list">
             <div><dt>e-mail</dt><dd><a href="mailto:kontakt@czupinski.com">kontakt@czupinski.com</a></dd></div>
             <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/stianski" rel="noopener noreferrer">linkedin.com/in/stianski</a></dd></div>
-            <div><dt>GitHub</dt><dd><span class="todo">[TODO: konto jeszcze nie istnieje]</span></dd></div>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/stianski" rel="noopener noreferrer">github.com/stianski</a></dd></div>
           </dl>
         </div>
       </div>

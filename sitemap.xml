@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Mapa strony: dwa adresy, każdy ze wskazaniem swojej drugiej wersji językowej. -->
+<!-- Mapa strony: strona główna i narzędzie KSC, każdy adres ze wskazaniem swojej drugiej wersji językowej. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
@@ -13,5 +13,17 @@
     <xhtml:link rel="alternate" hreflang="pl" href="https://czupinski.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://czupinski.com/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://czupinski.com/"/>
+  </url>
+  <url>
+    <loc>https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://czupinski.com/en/tools/ksc-applicability-test/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/"/>
+  </url>
+  <url>
+    <loc>https://czupinski.com/en/tools/ksc-applicability-test/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://czupinski.com/en/tools/ksc-applicability-test/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/"/>
   </url>
 </urlset>

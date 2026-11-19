@@ -166,6 +166,7 @@
             <article class="service">
               <h3>NIS2 / KSC gap analysis</h3>
               <p>A check of which requirements of the NIS2 Directive and the Polish KSC Act are already met and which are missing. The result is a list of gaps and a prioritised action plan.</p>
+              <a href="tools/ksc-applicability-test/index.html">Test: does the KSC Act apply to you?</a>
               <a href="#contact">Ask about this service</a>
             </article>
             <article class="service">
@@ -358,7 +359,7 @@
           <article class="card">
             <p class="card-kicker">czupinski.com</p>
             <h3>This site</h3>
-            <p>Static HTML and CSS, with no frameworks and no build step. No cookies, no trackers and nothing loaded from third-party servers. JavaScript only handles the theme and navigation, and the site still works without it.</p>
+            <p>Static HTML and CSS, with no frameworks and no build step. No cookies, no trackers and nothing loaded from third-party servers. JavaScript handles the theme, navigation and the KSC test, and the home page still works without it.</p>
             <p>A strict Content-Security-Policy without <code>unsafe-inline</code>, a <a href="../.well-known/security.txt">security.txt</a> file that follows RFC 9116, and colour contrast checked against WCAG AA.</p>
             <ul class="tags">
               <li>HTML</li>
@@ -368,48 +369,28 @@
             </ul>
           </article>
 
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: category]</span></p>
-            <h3><span class="todo">[TODO: project name]</span></h3>
-            <p><span class="todo">[TODO: 2–3 sentences on what it is and what I did in it]</span></p>
+          <article class="card">
+            <p class="card-kicker">tool</p>
+            <h3><a href="tools/ksc-applicability-test/index.html">Test: does the KSC Act apply to you?</a></h3>
+            <p>Six questions about the type of activity, sector and size of a company. The result comes from a decision tree based on Article 5 of the Polish KSC Act, not from a language model, so the same answers always give the same result.</p>
+            <p>It runs entirely in the browser: answers are not sent or stored anywhere.</p>
+            <ul class="tags">
+              <li>NIS2 / KSC</li>
+              <li>JavaScript</li>
+              <li>automated tests</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- 8. LINKS: miejsce na promowane odnośniki (inne strony, profile, publikacje).
-         Wypełnienie jak w /index.html: nazwę owiń linkiem z rel="noopener noreferrer". -->
-    <section class="section band-alt" id="links" aria-labelledby="links-title">
+    <!-- Sekcja "More from me" została usunięta 19.11.2026 razem z polską "Więcej ode mnie". -->
+
+    <!-- 8. CONTACT -->
+    <section class="section band-alt" id="contact" aria-labelledby="contact-title">
       <div class="container section-inner">
         <header>
           <span class="section-label" aria-hidden="true">07</span>
-          <h2 id="links-title">More from me</h2>
-        </header>
-        <div class="card-grid">
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: type, e.g. site, blog, tool]</span></p>
-            <h3><span class="todo">[TODO: name and address of the first link]</span></h3>
-            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
-          </article>
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: type]</span></p>
-            <h3><span class="todo">[TODO: name and address of the second link]</span></h3>
-            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
-          </article>
-          <article class="card card-empty">
-            <p class="card-kicker"><span class="todo">[TODO: type]</span></p>
-            <h3><span class="todo">[TODO: name and address of the third link]</span></h3>
-            <p><span class="todo">[TODO: one sentence on what is there]</span></p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- 9. CONTACT -->
-    <section class="section" id="contact" aria-labelledby="contact-title">
-      <div class="container section-inner">
-        <header>
-          <span class="section-label" aria-hidden="true">08</span>
           <h2 id="contact-title">Contact</h2>
         </header>
         <div>
@@ -417,7 +398,7 @@
           <dl class="contact-list">
             <div><dt>email</dt><dd><a href="mailto:kontakt@czupinski.com">kontakt@czupinski.com</a></dd></div>
             <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/stianski" rel="noopener noreferrer">linkedin.com/in/stianski</a></dd></div>
-            <div><dt>GitHub</dt><dd><span class="todo">[TODO: account does not exist yet]</span></dd></div>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/stianski" rel="noopener noreferrer">github.com/stianski</a></dd></div>
           </dl>
         </div>
       </div>

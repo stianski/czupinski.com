@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<!-- Narzędzie "Czy moja firma podlega pod KSC?". Wersja angielska: /en/tools/ksc-applicability-test/.
+     Każdą zmianę treści rób w obu. Pytania i wyniki NIE są w tym pliku: leżą w assets/data/ksc-tree.json
+     i przychodzą z projektu ksc-compliance (tools\sync-ksc.ps1). -->
+<html lang="pl" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--
+    Content-Security-Policy jak na stronie głównej, z jednym dodatkiem: connect-src 'self'.
+    Narzędzie pobiera plik z pytaniami (assets/data/ksc-tree.json) z tej samej domeny i nic więcej.
+    form-action 'none' zostaje: formularz pytań nigdzie nie jest wysyłany, obsługuje go skrypt.
+    Hash sha256 dopuszcza blok JSON-LD z pytaniami FAQ; po każdej jego zmianie: tools\csp-hash.ps1
+  -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-Iv3W0hV+KOTfR55jDntylaRdiSCTcfpMNjm3wJQjhdQ='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Czy moja firma podlega ustawie o KSC? Test | Sebastian Czupiński</title>
+  <meta name="description" content="Sześć pytań o rodzaj działalności, sektor i wielkość firmy. Orientacyjny wynik: podmiot kluczowy, ważny albo poza zakresem ustawy o KSC. Odpowiedzi nie opuszczają przeglądarki.">
+  <meta name="author" content="Sebastian Czupiński">
+  <meta name="theme-color" content="#0f1f1a">
+
+  <link rel="canonical" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+  <link rel="alternate" hreflang="pl" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+  <link rel="alternate" hreflang="en" href="https://czupinski.com/en/tools/ksc-applicability-test/">
+  <link rel="alternate" hreflang="x-default" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="czupinski.com">
+  <meta property="og:title" content="Czy moja firma podlega ustawie o KSC?">
+  <meta property="og:description" content="Sześć pytań o rodzaj działalności, sektor i wielkość. Orientacyjny wynik od razu, z uwagami o przypadkach granicznych.">
+  <meta property="og:url" content="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:image" content="https://czupinski.com/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC)">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../assets/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../assets/fonts/newsreader-latin-ext-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- Celowo bez defer: skrypt ma ustawić motyw przed narysowaniem strony. -->
+  <script src="../../assets/js/theme.js"></script>
+  <script src="../../assets/js/nav.js" defer></script>
+  <!-- Moduł ES: wykonuje się po wczytaniu HTML. Importuje ksc-test.js (logika wyniku). -->
+  <script type="module" src="../../assets/js/ksc-strona.js"></script>
+  <!-- Skrypt importuje ksc-test.js i pobiera plik z pytaniami. Zapowiadamy oba pliki z góry,
+       żeby przeglądarka pobierała je równolegle, a nie jeden po drugim. -->
+  <link rel="modulepreload" href="../../assets/js/ksc-test.js">
+  <link rel="preload" href="../../assets/data/ksc-tree.json" as="fetch" type="application/json" crossorigin>
+
+  <!-- Dane strukturalne FAQ. Jedna linia, bo z jej treści liczony jest hash w CSP. Odpowiedzi muszą być takie same jak w sekcji "Pytania" niżej. -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"pl","mainEntity":[{"@type":"Question","name":"Czy mała firma może podlegać ustawie o KSC?","acceptedAnswer":{"@type":"Answer","text":"Mikro- i małe przedsiębiorstwa co do zasady jej nie podlegają. Wyjątkiem są działalności objęte ustawą niezależnie od wielkości firmy, na przykład usługi DNS, rejestracja nazw domen i kwalifikowane usługi zaufania. Sprawdź też, czy po doliczeniu przedsiębiorstw powiązanych nie przekraczasz progów."}},{"@type":"Question","name":"Czym różni się podmiot kluczowy od ważnego?","acceptedAnswer":{"@type":"Answer","text":"Podmiot kluczowy ma pełne obowiązki ustawowe oraz obowiązkowy audyt bezpieczeństwa co najmniej raz na 3 lata. Obowiązki podmiotu ważnego są zbliżone, bez obowiązkowego audytu cyklicznego."}},{"@type":"Question","name":"Do kiedy trzeba wdrożyć obowiązki?","acceptedAnswer":{"@type":"Answer","text":"Podmioty, które spełniały przesłanki 3 kwietnia 2026 r., realizują obowiązki (m.in. system zarządzania bezpieczeństwem informacji i obsługę incydentów) do 3 kwietnia 2027 r. Pozostałe mają 12 miesięcy od spełnienia przesłanek."}},{"@type":"Question","name":"Nie podlegam ustawie. Czy to mnie dotyczy?","acceptedAnswer":{"@type":"Answer","text":"Twoi klienci mogą podlegać ustawie. Muszą oni dbać o bezpieczeństwo łańcucha dostaw, więc możesz otrzymywać ankiety bezpieczeństwa i wymagania w umowach, nawet jeśli sam nie podlegasz przepisom."}}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#tresc">Przejdź do treści</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../index.html" aria-label="Sebastian Czupiński, strona główna">
+        <svg class="brand-mark" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+          <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+        </svg>
+        <span>czupinski.com</span>
+      </a>
+
+      <!-- Menu prowadzi do sekcji strony głównej. -->
+      <nav class="site-nav" id="menu" aria-label="Sekcje strony głównej">
+        <ul>
+          <li><a href="../../index.html#o-mnie">O mnie</a></li>
+          <li><a href="../../index.html#uslugi">Usługi</a></li>
+          <li><a href="../../index.html#obszary">Obszary</a></li>
+          <li><a href="../../index.html#doswiadczenie">Doświadczenie</a></li>
+          <li><a href="../../index.html#certyfikaty">Certyfikaty</a></li>
+          <li><a href="../../index.html#projekty">Projekty</a></li>
+          <li><a href="../../index.html#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <nav class="lang-switch" aria-label="Wersja językowa">
+          <span aria-current="true" lang="pl">PL</span>
+          <a href="../../en/tools/ksc-applicability-test/index.html" lang="en" hreflang="en" aria-label="English version">EN</a>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle
+                aria-label="Włącz motyw jasny"
+                data-label-light="Włącz motyw jasny"
+                data-label-dark="Włącz motyw ciemny">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" type="button" data-nav-toggle
+                aria-controls="menu" aria-expanded="false"
+                aria-label="Otwórz menu"
+                data-label-open="Otwórz menu"
+                data-label-close="Zamknij menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M4 8h16M4 16h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="tresc">
+
+    <!-- 1. TYTUŁ -->
+    <section class="ksc-hero" aria-labelledby="ksc-tytul">
+      <div class="container">
+        <div class="ksc-grid">
+          <p class="eyebrow">Narzędzie · NIS2 / KSC</p>
+          <h1 id="ksc-tytul">Czy moja firma podlega <em>ustawie o KSC?</em></h1>
+          <p class="ksc-lead">Sześć pytań o rodzaj działalności, sektor i wielkość. Wynik od razu, z uwagami o przypadkach granicznych.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. NARZĘDZIE
+         Zawartość [data-ksc-app] buduje assets/js/ksc-strona.js. Teksty interfejsu są tutaj,
+         w atrybutach data-t-* ({n}, {m}, {q}, {v}, {d} to miejsca na wartości), a propozycje
+         "następnego kroku" w znacznikach <template>. Pytania i wyniki są w pliku z data-tree. -->
+    <section class="section band-alt ksc-tool" aria-label="Test">
+      <div class="container" data-ksc
+           data-tree="../../assets/data/ksc-tree.json"
+           data-t-log="Twoje odpowiedzi"
+           data-t-privacy="Twoje odpowiedzi nie opuszczają przeglądarki."
+           data-t-log-count="Twoje odpowiedzi ({n} z {m})"
+           data-t-pending="w trakcie"
+           data-t-change="zmień"
+           data-t-change-label="Zmień odpowiedź: {q} ({a})"
+           data-t-step="Pytanie {n} z {m}"
+           data-t-group="Lista sektorów ({n})"
+           data-t-next="Dalej"
+           data-t-back="Wstecz"
+           data-t-error="Wybierz odpowiedź."
+           data-t-result="Wynik"
+           data-t-restart="Zacznij od nowa"
+           data-t-meta="Drzewo pytań {v}, treść zaktualizowano {d}."
+           data-t-draft="Wersja robocza: treść czeka na zatwierdzenie przed publikacją.">
+        <div class="ksc-grid" data-ksc-app></div>
+
+        <noscript>
+          <p class="ksc-message">Ten test działa w przeglądarce i wymaga włączonego JavaScriptu. Jeśli wolisz, <a href="../../index.html#kontakt">napisz do mnie</a>, ustalimy status organizacji w rozmowie.</p>
+        </noscript>
+        <p class="ksc-message" data-ksc-fallback hidden>Nie udało się wczytać pytań. Odśwież stronę albo <a href="../../index.html#kontakt">napisz do mnie</a>.</p>
+
+        <template data-ksc-next="subject">
+          <div class="ksc-next">
+            <span class="ksc-kicker">Następny krok</span>
+            <h3>Analiza luk NIS2 / KSC</h3>
+            <p>Sprawdzenie, które wymagania dyrektywy NIS2 i ustawy o KSC są już spełnione, a których brakuje. Wynik to lista luk i plan działań ułożony według priorytetów.</p>
+            <div class="ksc-nav">
+              <a class="button" href="../../index.html#kontakt">Zapytaj o analizę luk</a>
+            </div>
+          </div>
+        </template>
+        <template data-ksc-next="analysis">
+          <div class="ksc-next">
+            <span class="ksc-kicker">Następny krok</span>
+            <h3>Indywidualna ocena statusu</h3>
+            <p>Jeśli chcesz ustalić, czy i w jakim charakterze organizacja podlega ustawie, napisz. Zakres ustalamy zawsze na początku, po krótkiej rozmowie.</p>
+            <div class="ksc-nav">
+              <a class="button" href="../../index.html#kontakt">Napisz w tej sprawie</a>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- 3. JAK DZIAŁA -->
+    <section class="section" aria-labelledby="jak-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">01</span>
+          <h2 id="jak-tytul">Jak działa ten test</h2>
+        </header>
+        <div class="ksc-grid ksc-how-wrap">
+          <p class="section-intro">To drzewo decyzyjne, a nie model językowy. Ten sam zestaw odpowiedzi daje zawsze ten sam wynik, a każdą ścieżkę da się sprawdzić z ustawą. Test zwraca uwagę na cztery przypadki graniczne.</p>
+          <div class="ksc-how">
+            <div>
+              <h3>Działalność poboczna</h3>
+              <p>Załączniki wskazują rodzaje podmiotów, a nie główną działalność firmy, więc liczy się także działalność poboczna. Przy wodzie pitnej i ściekach ustawa wyłącza podmioty, dla których to nieistotna część działalności.</p>
+            </div>
+            <div>
+              <h3>Usługi ICT w grupie</h3>
+              <p>Dostawcy usług zarządzanych są wymienieni w załączniku nr 1, więc usługi ICT świadczone innym podmiotom, także w ramach grupy kapitałowej, mogą oznaczać podleganie przepisom.</p>
+            </div>
+            <div>
+              <h3>Przedsiębiorstwa powiązane</h3>
+              <p>Wielkość liczy się razem z danymi przedsiębiorstw powiązanych i partnerskich. Wyjątek: gdy progi przekraczasz tylko przez takie doliczenie, a Twój system informacyjny jest od nich niezależny albo nie świadczysz usług wspólnie z nimi.</p>
+            </div>
+            <div>
+              <h3>Łańcuch dostaw</h3>
+              <p>Firma poza zakresem ustawy może dostawać ankiety bezpieczeństwa i wymagania w umowach od klientów, którzy jej podlegają.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PYTANIA (FAQ)
+         Po zmianie pytania lub odpowiedzi popraw też blok JSON-LD w <head> i uruchom tools\csp-hash.ps1. -->
+    <section class="section band-alt" aria-labelledby="faq-tytul">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">02</span>
+          <h2 id="faq-tytul">Pytania</h2>
+        </header>
+        <dl class="ksc-faq">
+          <div>
+            <dt>Czy mała firma może podlegać ustawie o KSC?</dt>
+            <dd>Mikro- i małe przedsiębiorstwa co do zasady jej nie podlegają. Wyjątkiem są działalności objęte ustawą niezależnie od wielkości firmy, na przykład usługi DNS, rejestracja nazw domen i kwalifikowane usługi zaufania. Sprawdź też, czy po doliczeniu przedsiębiorstw powiązanych nie przekraczasz progów.</dd>
+          </div>
+          <div>
+            <dt>Czym różni się podmiot kluczowy od ważnego?</dt>
+            <dd>Podmiot kluczowy ma pełne obowiązki ustawowe oraz obowiązkowy audyt bezpieczeństwa co najmniej raz na 3 lata. Obowiązki podmiotu ważnego są zbliżone, bez obowiązkowego audytu cyklicznego.</dd>
+          </div>
+          <div>
+            <dt>Do kiedy trzeba wdrożyć obowiązki?</dt>
+            <dd>Podmioty, które spełniały przesłanki 3 kwietnia 2026 r., realizują obowiązki (m.in. system zarządzania bezpieczeństwem informacji i obsługę incydentów) do 3 kwietnia 2027 r. Pozostałe mają 12 miesięcy od spełnienia przesłanek.</dd>
+          </div>
+          <div>
+            <dt>Nie podlegam ustawie. Czy to mnie dotyczy?</dt>
+            <dd>Twoi klienci mogą podlegać ustawie. Muszą oni dbać o bezpieczeństwo łańcucha dostaw, więc możesz otrzymywać ankiety bezpieczeństwa i wymagania w umowach, nawet jeśli sam nie podlegasz przepisom.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Sebastian Czupiński</p>
+      <p>Bez ciasteczek i trackerów. <a href="../../.well-known/security.txt">security.txt</a></p>
+    </div>
+  </footer>
+</body>
+</html>

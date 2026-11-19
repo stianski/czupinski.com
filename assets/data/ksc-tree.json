@@ -1,0 +1,100 @@
+{
+  "version": "0.2.0",
+  "updated": "2026-11-18",
+  "status": "Zatwierdzono 19.11.2026 przez Sebastiana Czupińskiego. Treść porównana 18.11.2026 z Dz.U. 2026 poz. 252 i załącznikiem I do rozporządzenia 651/2014/UE (raport: docs/05-weryfikacja-testu-ksc.md)",
+  "source": "Podstawa: ustawa o krajowym systemie cyberbezpieczeństwa w brzmieniu nadanym ustawą z 23 stycznia 2026 r. (Dz.U. 2026 poz. 252), art. 5, 7c, 15 i 16 oraz załączniki nr 1 i 2; progi wielkości z art. 2 załącznika I do rozporządzenia 651/2014/UE.",
+  "disclaimer": "Wynik ma charakter orientacyjny i nie jest poradą prawną. O statusie podmiotu decydują przepisy ustawy o krajowym systemie cyberbezpieczeństwa.",
+  "questions": [
+    {
+      "id": "public",
+      "short": "Podmiot publiczny",
+      "text": "Czy organizacja jest podmiotem publicznym (np. urząd administracji, instytut badawczy, samorządowa jednostka budżetowa, spółka komunalna)?",
+      "options": [{ "v": "tak", "label": "Tak" }, { "v": "nie", "label": "Nie" }]
+    },
+    {
+      "id": "special",
+      "short": "Działalność szczególna",
+      "multi": true,
+      "text": "Czy organizacja prowadzi którąś z tych działalności?",
+      "hint": "Ustawa nadaje im status według odrębnych zasad, w większości niezależnie od wielkości firmy.",
+      "options": [
+        { "v": "dns", "short": "DNS lub rejestr TLD", "label": "Dostawca usług DNS lub rejestr nazw domen najwyższego poziomu (TLD)" },
+        { "v": "rejestrator", "short": "Rejestracja nazw domen", "label": "Podmiot świadczący usługi rejestracji nazw domen" },
+        { "v": "zaufanie_kwal", "short": "Kwalifikowane usługi zaufania", "label": "Kwalifikowany dostawca usług zaufania" },
+        { "v": "zaufanie_niekwal", "short": "Niekwalifikowane usługi zaufania", "label": "Niekwalifikowany dostawca usług zaufania" },
+        { "v": "telekom", "short": "Komunikacja elektroniczna", "label": "Przedsiębiorca komunikacji elektronicznej" },
+        { "v": "mssp", "short": "Usługi zarządzane cyberbezpieczeństwa", "label": "Dostawca usług zarządzanych w zakresie cyberbezpieczeństwa" },
+        { "v": "krytyczny", "label": "Podmiot krytyczny" },
+        { "v": "jadrowy_operator", "label": "Operator obiektu energetyki jądrowej" },
+        { "v": "jadrowy_inwestor", "short": "Inwestor obiektu energetyki jądrowej", "label": "Inwestor obiektu energetyki jądrowej z decyzją zasadniczą" },
+        { "v": "brak", "label": "Żadna z powyższych", "exclusive": true }
+      ]
+    },
+    {
+      "id": "sector",
+      "short": "Sektor",
+      "text": "W którym sektorze działa organizacja?",
+      "hint": "Załączniki wskazują rodzaje podmiotów, a nie główną działalność firmy, więc sprawdź także działalność poboczną. Jeśli działasz w sektorach z obu załączników, wybierz załącznik nr 1.",
+      "groups": [
+        {
+          "label": "Sektory z załącznika nr 1",
+          "v": "A1",
+          "items": ["Energia (wydobywanie kopalin, energia elektryczna, ciepło, ropa i paliwa, gaz, energetyka jądrowa, wodór)", "Transport (lotniczy, kolejowy, wodny, drogowy)", "Bankowość i infrastruktura rynków finansowych", "Ochrona zdrowia", "Zaopatrzenie w wodę pitną i jej dystrybucja", "Zbiorowe odprowadzanie ścieków", "Infrastruktura cyfrowa (m.in. chmura obliczeniowa, centra przetwarzania danych, sieci dostarczania treści, punkty wymiany ruchu internetowego)", "Zarządzanie usługami ICT (dostawcy usług zarządzanych)", "Przestrzeń kosmiczna"]
+        },
+        {
+          "label": "Sektory z załącznika nr 2",
+          "v": "A2",
+          "items": ["Usługi pocztowe", "Inwestycje energetyki jądrowej", "Gospodarowanie odpadami", "Produkcja, wytwarzanie i dystrybucja chemikaliów", "Produkcja, przetwarzanie i dystrybucja żywności", "Produkcja (wyroby medyczne, komputery oraz wyroby elektroniczne i optyczne, urządzenia elektryczne, maszyny i urządzenia, pojazdy samochodowe, przyczepy i naczepy, pozostały sprzęt transportowy)", "Dostawcy usług cyfrowych (internetowe platformy handlowe, wyszukiwarki internetowe, platformy sieci usług społecznościowych)", "Badania naukowe (organizacje badawcze)"]
+        }
+      ],
+      "options": [
+        { "v": "A1", "short": "Załącznik nr 1", "label": "Sektor z załącznika nr 1" },
+        { "v": "A2", "short": "Załącznik nr 2", "label": "Sektor z załącznika nr 2" },
+        { "v": "brak", "label": "Żaden z wymienionych" },
+        { "v": "niepewne", "label": "Nie mam pewności" }
+      ]
+    },
+    {
+      "id": "size",
+      "short": "Wielkość przedsiębiorstwa",
+      "text": "Jaka jest wielkość przedsiębiorstwa?",
+      "hint": "Wybierz pierwszą kategorię, w której się mieścisz. Dolicz dane przedsiębiorstw powiązanych i partnerskich, chyba że Twój system informacyjny jest od nich niezależny albo nie świadczysz usług wspólnie z nimi.",
+      "options": [
+        { "v": "mikro", "short": "Mikro", "label": "Mikro: mniej niż 10 osób oraz obrót lub suma bilansowa do 2 mln euro" },
+        { "v": "male", "short": "Małe", "label": "Małe: mniej niż 50 osób oraz obrót lub suma bilansowa do 10 mln euro" },
+        { "v": "srednie", "short": "Średnie", "label": "Średnie: mniej niż 250 osób oraz obrót do 50 mln euro lub suma bilansowa do 43 mln euro" },
+        { "v": "duze", "short": "Duże", "label": "Duże: co najmniej 250 osób albo obrót powyżej 50 mln euro i suma bilansowa powyżej 43 mln euro" }
+      ]
+    },
+    {
+      "id": "ict",
+      "short": "Usługi ICT dla innych podmiotów",
+      "text": "Czy organizacja świadczy innym podmiotom usługi ICT — także pobocznie lub wyłącznie w ramach grupy kapitałowej (np. administracja systemami, hosting, wsparcie IT)?",
+      "options": [{ "v": "tak", "label": "Tak" }, { "v": "nie", "label": "Nie" }]
+    },
+    {
+      "id": "clients",
+      "short": "Klienci z sektorów objętych ustawą",
+      "text": "Czy wśród klientów organizacji są podmioty z sektorów wymienionych wcześniej (np. energetyka, transport, ochrona zdrowia, wodociągi, administracja)?",
+      "options": [{ "v": "tak", "label": "Tak" }, { "v": "nie", "label": "Nie" }, { "v": "niewiem", "label": "Nie wiem" }]
+    }
+  ],
+  "outcomes": {
+    "PUBLICZNY": { "title": "Podmiot publiczny — odrębne zasady", "emphasis": "odrębne zasady", "text": "Podmioty publiczne wskazane w załączniku nr 1 są podmiotami kluczowymi niezależnie od wielkości. Samorządowe jednostki i zakłady budżetowe, samorządowe instytucje kultury oraz spółki komunalne, które realizują zadania publiczne z wykorzystaniem systemów informacyjnych, są podmiotami ważnymi i stosują system zarządzania bezpieczeństwem informacji z załącznika nr 4. Ten test nie rozstrzyga, do której grupy należysz." },
+    "KLUCZOWY": { "title": "Prawdopodobnie podmiot kluczowy", "emphasis": "podmiot kluczowy", "text": "Odpowiedzi wskazują przesłanki z art. 5 ust. 1 ustawy: duże przedsiębiorstwo z sektora z załącznika nr 1 albo działalność, której ustawa nadaje status podmiotu kluczowego. Oznacza to pełne obowiązki ustawowe oraz audyt bezpieczeństwa co najmniej raz na 3 lata." },
+    "WAZNY": { "title": "Prawdopodobnie podmiot ważny", "emphasis": "podmiot ważny", "text": "Odpowiedzi wskazują przesłanki z art. 5 ust. 2 ustawy: średnie przedsiębiorstwo z sektora z załącznika nr 1, średnie lub duże z sektora z załącznika nr 2 albo działalność, której ustawa nadaje status podmiotu ważnego. Obowiązki są zbliżone do podmiotu kluczowego, bez obowiązkowego audytu cyklicznego." },
+    "ZA_MALY": { "title": "Prawdopodobnie nie podlegasz ze względu na wielkość", "emphasis": "nie podlegasz", "text": "Działasz w sektorze objętym ustawą, ale mikro- i małe przedsiębiorstwa co do zasady jej nie podlegają. Sprawdź jednak, czy po doliczeniu przedsiębiorstw powiązanych i partnerskich nie przekraczasz progów." },
+    "ANALIZA": { "title": "Wymagana indywidualna analiza", "emphasis": "indywidualna analiza", "text": "Na podstawie odpowiedzi nie da się rzetelnie wskazać statusu. Najczęstsze powody to niepewność co do sektora albo usługi ICT świadczone innym podmiotom: dostawcy usług zarządzanych są wymienieni w załączniku nr 1." },
+    "NIE": { "title": "Prawdopodobnie nie podlegasz ustawie bezpośrednio", "emphasis": "nie podlegasz", "text": "Nie wskazano działalności w sektorach objętych ustawą ani działalności, której ustawa nadaje status niezależnie od sektora." }
+  },
+  "notes": {
+    "lancuch": "Twoi klienci mogą podlegać ustawie. Muszą oni dbać o bezpieczeństwo łańcucha dostaw, więc możesz otrzymywać ankiety bezpieczeństwa i wymagania w umowach, nawet jeśli sam nie podlegasz przepisom.",
+    "termin": "Wniosek o wpis do wykazu podmiotów kluczowych i ważnych składa się w ciągu 6 miesięcy od spełnienia przesłanek. Podmioty, które spełniały je 3 kwietnia 2026 r., obowiązuje harmonogram ogłoszony przez ministra właściwego do spraw informatyzacji. Jeśli nie masz wpisu, sprawdź swój termin w pierwszej kolejności.",
+    "wdrozenie": "Podmioty, które spełniały przesłanki 3 kwietnia 2026 r., realizują obowiązki z rozdziału 3 ustawy (m.in. system zarządzania bezpieczeństwem informacji i obsługę incydentów) do 3 kwietnia 2027 r. Pozostałe mają na to 12 miesięcy od spełnienia przesłanek."
+  },
+  "noteLabels": {
+    "lancuch": "łańcuch dostaw",
+    "termin": "wpis do wykazu",
+    "wdrozenie": "wdrożenie"
+  }
+}

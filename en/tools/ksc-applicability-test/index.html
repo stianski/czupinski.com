@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!-- Narzędzie "Czy moja firma podlega pod KSC?", wersja angielska. Wersja polska: /narzedzia/czy-podlegam-pod-ksc/.
+     Każdą zmianę treści rób w obu. Pytania i wyniki NIE są w tym pliku: leżą w assets/data/ksc-tree.en.json
+     i przychodzą z projektu ksc-compliance (tools\sync-ksc.ps1). -->
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Content-Security-Policy: opis w wersji polskiej. connect-src 'self' pozwala pobrać plik z pytaniami. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-zWxVmiCrG2IQsUuwTezXJM2cT/5xCZ6rHbrSUm6on5k='; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <title>Does the Polish KSC Act apply to my company? Test | Sebastian Czupiński</title>
+  <meta name="description" content="Six questions about the type of activity, sector and size of your company. An indicative result: essential entity, important entity or outside the scope of the Polish KSC Act (NIS2). Your answers never leave your browser.">
+  <meta name="author" content="Sebastian Czupiński">
+  <meta name="theme-color" content="#0f1f1a">
+
+  <link rel="canonical" href="https://czupinski.com/en/tools/ksc-applicability-test/">
+  <link rel="alternate" hreflang="pl" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+  <link rel="alternate" hreflang="en" href="https://czupinski.com/en/tools/ksc-applicability-test/">
+  <link rel="alternate" hreflang="x-default" href="https://czupinski.com/narzedzia/czy-podlegam-pod-ksc/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="czupinski.com">
+  <meta property="og:title" content="Does the Polish KSC Act apply to my company?">
+  <meta property="og:description" content="Six questions about the type of activity, sector and size. An immediate, indicative result with notes on borderline cases.">
+  <meta property="og:url" content="https://czupinski.com/en/tools/ksc-applicability-test/">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="pl_PL">
+  <meta property="og:image" content="https://czupinski.com/assets/img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Sebastian Czupiński, Cybersecurity Senior Consultant (GRC)">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="../../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="../../../assets/fonts/newsreader-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="../../../assets/fonts/newsreader-latin-400-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../../../assets/css/style.css">
+  <script src="../../../assets/js/theme.js"></script>
+  <script src="../../../assets/js/nav.js" defer></script>
+  <script type="module" src="../../../assets/js/ksc-strona.js"></script>
+  <!-- Skrypt importuje ksc-test.js i pobiera plik z pytaniami. Zapowiadamy oba pliki z góry,
+       żeby przeglądarka pobierała je równolegle, a nie jeden po drugim. -->
+  <link rel="modulepreload" href="../../../assets/js/ksc-test.js">
+  <link rel="preload" href="../../../assets/data/ksc-tree.en.json" as="fetch" type="application/json" crossorigin>
+
+  <!-- Dane strukturalne FAQ. Jedna linia, bo z jej treści liczony jest hash w CSP. Odpowiedzi takie same jak w sekcji "Questions" niżej. -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Can a small company fall under the KSC Act?","acceptedAnswer":{"@type":"Answer","text":"Micro and small enterprises are, as a rule, not subject to it. The exceptions are activities covered by the Act regardless of company size, for example DNS services, domain name registration and qualified trust services. Also check whether you exceed the thresholds once linked enterprises are included."}},{"@type":"Question","name":"What is the difference between an essential and an important entity?","acceptedAnswer":{"@type":"Answer","text":"An essential entity has the full set of statutory obligations and a mandatory security audit at least once every 3 years. The obligations of an important entity are similar, without the mandatory periodic audit."}},{"@type":"Question","name":"By when do the obligations have to be implemented?","acceptedAnswer":{"@type":"Answer","text":"Entities that met the criteria on 3 April 2026 must implement the obligations (including the information security management system and incident handling) by 3 April 2027. Others have 12 months from meeting the criteria."}},{"@type":"Question","name":"The Act does not apply to me. Does it still affect me?","acceptedAnswer":{"@type":"Answer","text":"Your customers may be subject to the Act. They have to look after the security of their supply chain, so you may receive security questionnaires and contractual requirements even if you are not subject to the provisions yourself."}}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../../index.html" aria-label="Sebastian Czupiński, home page">
+        <svg class="brand-mark" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle class="monogram-ring" cx="60" cy="60" r="52.5"/>
+          <text class="monogram-letters" x="59" y="78" text-anchor="middle">S<tspan class="monogram-c">C</tspan></text>
+        </svg>
+        <span>czupinski.com</span>
+      </a>
+
+      <nav class="site-nav" id="menu" aria-label="Home page sections">
+        <ul>
+          <li><a href="../../index.html#about">About</a></li>
+          <li><a href="../../index.html#services">Services</a></li>
+          <li><a href="../../index.html#areas">Areas</a></li>
+          <li><a href="../../index.html#experience">Experience</a></li>
+          <li><a href="../../index.html#certifications">Certifications</a></li>
+          <li><a href="../../index.html#projects">Projects</a></li>
+          <li><a href="../../index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-tools">
+        <nav class="lang-switch" aria-label="Language">
+          <a href="../../../narzedzia/czy-podlegam-pod-ksc/index.html" lang="pl" hreflang="pl" aria-label="Wersja polska">PL</a>
+          <span aria-current="true" lang="en">EN</span>
+        </nav>
+        <button class="theme-toggle" type="button" data-theme-toggle
+                aria-label="Switch to light theme"
+                data-label-light="Switch to light theme"
+                data-label-dark="Switch to dark theme">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" type="button" data-nav-toggle
+                aria-controls="menu" aria-expanded="false"
+                aria-label="Open menu"
+                data-label-open="Open menu"
+                data-label-close="Close menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M4 8h16M4 16h16"/>
+          </svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- 1. TITLE -->
+    <section class="ksc-hero" aria-labelledby="ksc-title">
+      <div class="container">
+        <div class="ksc-grid">
+          <p class="eyebrow">Tool · NIS2 / KSC</p>
+          <h1 id="ksc-title">Does the <em>KSC&nbsp;Act</em> apply to my company?</h1>
+          <p class="ksc-lead">Six questions about the type of activity, sector and size. An immediate result, with notes on borderline cases.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. TOOL (opis mechanizmu w wersji polskiej) -->
+    <section class="section band-alt ksc-tool" aria-label="Test">
+      <div class="container" data-ksc
+           data-tree="../../../assets/data/ksc-tree.en.json"
+           data-locale="en-GB"
+           data-t-log="Your answers"
+           data-t-privacy="Your answers never leave your browser."
+           data-t-log-count="Your answers ({n} of {m})"
+           data-t-pending="in progress"
+           data-t-change="change"
+           data-t-change-label="Change answer: {q} ({a})"
+           data-t-step="Question {n} of {m}"
+           data-t-group="List of sectors ({n})"
+           data-t-next="Next"
+           data-t-back="Back"
+           data-t-error="Choose an answer."
+           data-t-result="Result"
+           data-t-restart="Start again"
+           data-t-meta="Question tree {v}, content updated {d}."
+           data-t-draft="Draft: the content is awaiting approval before publication.">
+        <div class="ksc-grid" data-ksc-app></div>
+
+        <noscript>
+          <p class="ksc-message">This test runs in the browser and needs JavaScript. If you prefer, <a href="../../index.html#contact">get in touch</a> and we will establish the status of the organisation in a conversation.</p>
+        </noscript>
+        <p class="ksc-message" data-ksc-fallback hidden>The questions could not be loaded. Refresh the page or <a href="../../index.html#contact">get in touch</a>.</p>
+
+        <template data-ksc-next="subject">
+          <div class="ksc-next">
+            <span class="ksc-kicker">Next step</span>
+            <h3>NIS2 / KSC gap analysis</h3>
+            <p>A check of which requirements of the NIS2 Directive and the Polish KSC Act are already met and which are missing. The result is a list of gaps and a prioritised action plan.</p>
+            <div class="ksc-nav">
+              <a class="button" href="../../index.html#contact">Ask about a gap analysis</a>
+            </div>
+          </div>
+        </template>
+        <template data-ksc-next="analysis">
+          <div class="ksc-next">
+            <span class="ksc-kicker">Next step</span>
+            <h3>Individual status assessment</h3>
+            <p>If you want to establish whether, and in what capacity, the organisation falls under the Act, get in touch. We always agree the scope first, after a short conversation.</p>
+            <div class="ksc-nav">
+              <a class="button" href="../../index.html#contact">Get in touch</a>
+            </div>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <!-- 3. HOW IT WORKS -->
+    <section class="section" aria-labelledby="how-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">01</span>
+          <h2 id="how-title">How this test works</h2>
+        </header>
+        <div class="ksc-grid ksc-how-wrap">
+          <p class="section-intro">This is a decision tree, not a language model. The same set of answers always gives the same result, and every path can be checked against the Act. The test draws attention to four borderline cases.</p>
+          <div class="ksc-how">
+            <div>
+              <h3>Secondary activity</h3>
+              <p>The Annexes list types of entities, not a company's main line of business, so secondary activities count as well. For drinking water and waste water, the Act excludes entities for which this is a non-essential part of their activity.</p>
+            </div>
+            <div>
+              <h3>ICT services within a group</h3>
+              <p>Managed service providers are listed in Annex 1, so ICT services provided to other entities, including within a corporate group, may mean that the provisions apply.</p>
+            </div>
+            <div>
+              <h3>Linked enterprises</h3>
+              <p>Size is calculated together with the figures of linked and partner enterprises. The exception: when you exceed the thresholds only because of that aggregation and your information system is independent of theirs, or you do not provide services jointly with them.</p>
+            </div>
+            <div>
+              <h3>Supply chain</h3>
+              <p>A company outside the scope of the Act may receive security questionnaires and contractual requirements from customers who are subject to it.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. QUESTIONS (FAQ): po zmianie popraw też blok JSON-LD w <head> i uruchom tools\csp-hash.ps1. -->
+    <section class="section band-alt" aria-labelledby="faq-title">
+      <div class="container section-inner">
+        <header>
+          <span class="section-label" aria-hidden="true">02</span>
+          <h2 id="faq-title">Questions</h2>
+        </header>
+        <dl class="ksc-faq">
+          <div>
+            <dt>Can a small company fall under the KSC Act?</dt>
+            <dd>Micro and small enterprises are, as a rule, not subject to it. The exceptions are activities covered by the Act regardless of company size, for example DNS services, domain name registration and qualified trust services. Also check whether you exceed the thresholds once linked enterprises are included.</dd>
+          </div>
+          <div>
+            <dt>What is the difference between an essential and an important entity?</dt>
+            <dd>An essential entity has the full set of statutory obligations and a mandatory security audit at least once every 3 years. The obligations of an important entity are similar, without the mandatory periodic audit.</dd>
+          </div>
+          <div>
+            <dt>By when do the obligations have to be implemented?</dt>
+            <dd>Entities that met the criteria on 3 April 2026 must implement the obligations (including the information security management system and incident handling) by 3 April 2027. Others have 12 months from meeting the criteria.</dd>
+          </div>
+          <div>
+            <dt>The Act does not apply to me. Does it still affect me?</dt>
+            <dd>Your customers may be subject to the Act. They have to look after the security of their supply chain, so you may receive security questionnaires and contractual requirements even if you are not subject to the provisions yourself.</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Sebastian Czupiński</p>
+      <p>No cookies, no trackers. <a href="../../../.well-known/security.txt">security.txt</a></p>
+    </div>
+  </footer>
+</body>
+</html>

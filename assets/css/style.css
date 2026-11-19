@@ -2019,3 +2019,763 @@ code {
     animation: none !important;
   }
 }
+
+/* 12. NARZĘDZIE KSC (2026-11-18) ---------------------------------------------
+   Podstrona /narzedzia/czy-podlegam-pod-ksc/ i jej wersja angielska, kierunek
+   "Protokół": pytanie albo wynik oraz zapis odpowiedzi. Elementy tworzy
+   assets/js/ksc-strona.js; wynik liczy assets/js/ksc-test.js.
+   Na szerokim ekranie cała podstrona trzyma jedną siatkę 12 kolumn (.ksc-grid):
+   lewa część to kolumny 1-4, prawa zaczyna się zawsze od kolumny 6 (hero,
+   narzędzie, "Jak działa", pytania). Na telefonie wszystko stoi w jednej kolumnie,
+   a zapis odpowiedzi jest zwinięty do jednego wiersza pod pytaniem.
+   Styl kierunku B: linie zamiast pudełek, kolory wyłącznie ze zmiennych. */
+.ksc-hero {
+  padding-block: var(--space-5);
+}
+
+.ksc-hero .eyebrow {
+  margin-bottom: var(--space-3);
+  font-size: 0.875rem;
+}
+
+.ksc-hero h1 {
+  font-size: clamp(1.625rem, 7vw, 2.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.ksc-hero h1 em,
+.ksc-verdict em {
+  color: var(--color-accent);
+}
+
+.ksc-lead {
+  max-width: 36rem;
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+/* Zdanie o prywatności stoi pod zapisem odpowiedzi, bo właśnie ich dotyczy. */
+.ksc-privacy {
+  margin-top: var(--space-4);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+/* Miejsce na narzędzie zarezerwowane przed wczytaniem pytań, żeby strona nie skakała.
+   Tylko z JavaScriptem: bez niego w tym miejscu jest sam komunikat. */
+.js [data-ksc-app] {
+  min-height: 24rem;
+}
+
+.section.ksc-tool {
+  padding-block: var(--space-6) var(--space-7);
+}
+
+/* Komunikat bez JavaScriptu albo gdy nie udało się wczytać pytań. */
+.ksc-message {
+  max-width: 40rem;
+  color: var(--color-text-muted);
+}
+
+.ksc-kicker {
+  display: block;
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0;
+}
+
+button.button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+/* Pytanie */
+.ksc-q {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ksc-q legend {
+  padding: 0;
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: clamp(1.625rem, 5.5vw, 2.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.ksc-q legend .ksc-kicker {
+  margin-bottom: var(--space-3);
+  line-height: 1.5;
+}
+
+/* Fokus trafia tu ze skryptu po zmianie kroku; obrys byłby mylący, bo to nie kontrolka. */
+.ksc-q legend:focus,
+.ksc-verdict:focus {
+  outline: none;
+}
+
+/* Dopowiedzenie do pytania: zwykły tekst, wyraźnie niżej w hierarchii niż pytanie. */
+.ksc-hint {
+  max-width: 38rem;
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Odpowiedzi: wiersze z liniami włosowymi. Cała etykieta jest klikalna. */
+.ksc-opts {
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.ksc-opt-row + .ksc-opt-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.ksc-opt {
+  display: grid;
+  grid-template-columns: 1.25rem 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  min-height: 3.25rem;
+  padding: 0.95rem 0;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.ksc-opt input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 50%;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.ksc-opt input[type="checkbox"] {
+  border-radius: 2px;
+}
+
+/* Zaznaczenie: miedziany środek z odstępem w kolorze tła (cień do wewnątrz). */
+.ksc-opt input:checked {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 4px var(--color-bg);
+}
+
+.ksc-opt:hover span {
+  color: var(--color-heading);
+}
+
+@supports selector(:has(a)) {
+  .ksc-opt:has(input:checked) span {
+    color: var(--color-heading);
+    font-weight: 600;
+  }
+}
+
+/* Lista z załącznika pod odpowiedzią, której dotyczy; wcięta do tekstu etykiety. */
+.ksc-more {
+  margin: -0.75rem 0 var(--space-3) calc(1.25rem + var(--space-4));
+}
+
+/* Wysokość wiersza ok. 44 px: wygodny cel dla palca. */
+.ksc-more summary {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 0;
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.ksc-more ul {
+  padding: 0 0 var(--space-2) 1.35rem;
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.ksc-more summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Ten sam znak co w przełączniku zapisu odpowiedzi; pusty tekst zastępczy dla czytników. */
+.ksc-more summary::before {
+  content: "+";
+  content: "+" / "";
+  width: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.ksc-more[open] summary::before {
+  content: "–";
+  content: "–" / "";
+}
+
+.ksc-more li {
+  padding-block: 0.3rem;
+  break-inside: avoid;
+}
+
+.ksc-err {
+  min-height: 1.5rem;
+  margin-top: var(--space-3);
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+}
+
+.ksc-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.ksc-back::after {
+  content: none;
+}
+
+/* W kodzie "Dalej" jest pierwszy (to on wysyła formularz), na ekranie "Wstecz" stoi po lewej. */
+.ksc-prev {
+  order: -1;
+}
+
+.ksc-nav .button {
+  min-height: 3rem;
+  padding-inline: var(--space-5);
+}
+
+/* "Zacznij od nowa": cichy przycisk tekstowy, żeby nie konkurował z główną propozycją. */
+.ksc-textbtn {
+  min-height: 3rem;
+  padding: 0 var(--space-3);
+  background: none;
+  color: var(--color-text-muted);
+  border: 0;
+  font: inherit;
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.ksc-textbtn:hover {
+  color: var(--color-accent);
+}
+
+/* Wynik. Selektor z .section, żeby wygrać z ogólnym ".section h2". */
+.section .ksc-verdict {
+  margin-top: var(--space-3);
+  font-size: clamp(2.5rem, 10.5vw, 3.25rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.ksc-result-text {
+  max-width: 40rem;
+  margin-top: var(--space-4);
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.ksc-notes {
+  margin-top: var(--space-5);
+}
+
+.ksc-notes div {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: 0.85rem;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Pierwsza uwaga (dla podlegających: termin, który już minął) zaczyna się linią w akcencie. */
+.ksc-notes div:first-child {
+  border-top-color: var(--color-accent);
+}
+
+.ksc-notes dt {
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+}
+
+.ksc-notes dd {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* Następny krok: jedna propozycja z linkiem do Kontaktu, jak w sekcji "Usługi". */
+.ksc-next {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.ksc-next h3 {
+  margin-top: var(--space-1);
+  font-size: 1.5rem;
+}
+
+.ksc-next p {
+  max-width: 40rem;
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.ksc-result > .ksc-nav {
+  margin-top: var(--space-3);
+}
+
+.ksc-meta + .ksc-meta {
+  margin-top: var(--space-2);
+}
+
+.ksc-next .ksc-nav {
+  margin-top: var(--space-5);
+}
+
+.ksc-meta {
+  max-width: 40rem;
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Zapis odpowiedzi. Na telefonie: jeden wiersz-przełącznik pod pytaniem, lista po rozwinięciu. */
+.ksc-aside {
+  margin-top: var(--space-7);
+}
+
+.ksc-result > .ksc-aside {
+  margin-top: var(--space-6);
+}
+
+.ksc-log-title {
+  display: none;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.ksc-log-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 3.25rem;
+  padding: 0;
+  background: none;
+  color: var(--color-heading);
+  border: 0;
+  border-top: 1px solid var(--color-border-strong);
+  border-bottom: 1px solid var(--color-border);
+  font: inherit;
+  font-size: 0.9375rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Znak rozwinięcia dopisany w CSS, pusty tekst zastępczy dla czytników (stan mówi aria-expanded). */
+.ksc-log-toggle::after {
+  content: "+";
+  content: "+" / "";
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+}
+
+.ksc-log-toggle[aria-expanded="true"]::after {
+  content: "–";
+  content: "–" / "";
+}
+
+.ksc-log {
+  display: none;
+  counter-reset: krok;
+}
+
+.ksc-aside.is-open .ksc-log {
+  display: block;
+}
+
+.ksc-log li {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  align-items: start;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.ksc-log li::before {
+  counter-increment: krok;
+  content: "0" counter(krok);
+  padding-top: 0.8rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+/* Wiersz zapisu: etykieta i odpowiedź po lewej, "zmień" po prawej. Dla udzielonej
+   odpowiedzi cały wiersz jest przyciskiem (min. 48 px wysokości). */
+.ksc-log-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0 var(--space-3);
+  align-items: center;
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.6rem 0;
+  background: none;
+  color: inherit;
+  border: 0;
+  font: inherit;
+  text-align: left;
+}
+
+button.ksc-log-row {
+  cursor: pointer;
+}
+
+.ksc-log .q {
+  grid-column: 1;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.ksc-log .a {
+  grid-column: 1;
+  color: var(--color-heading);
+  font-size: 0.9375rem;
+  line-height: 1.45;
+}
+
+.ksc-change {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  color: var(--color-accent);
+  font-size: 0.9375rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+button.ksc-log-row:hover .ksc-change {
+  color: var(--color-accent-hover);
+}
+
+.ksc-log .is-current::before {
+  color: var(--color-accent);
+}
+
+.ksc-log .is-current .q {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.ksc-log .is-current .a {
+  color: var(--color-accent);
+}
+
+.ksc-log .is-empty .a {
+  color: var(--color-text-muted);
+}
+
+.ksc-log-count {
+  color: var(--color-accent);
+}
+
+/* Sekcje pod narzędziem */
+.ksc-how div {
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.ksc-how div:first-child {
+  border-top-color: var(--color-border-strong);
+}
+
+.ksc-how h3 {
+  font-size: 1.5rem;
+}
+
+.ksc-how p {
+  max-width: 38rem;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.ksc-faq div {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.ksc-faq div:first-child {
+  border-top-color: var(--color-border-strong);
+}
+
+.ksc-faq dt {
+  color: var(--color-heading);
+  font-family: var(--font-serif);
+  font-size: 1.375rem;
+  line-height: 1.25;
+}
+
+.ksc-faq dd {
+  max-width: 38rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+/* Usługi na stronie głównej: drugi link w karcie stoi tuż pod pierwszym. */
+.service a + a {
+  margin-top: 0;
+  padding-top: var(--space-2);
+}
+
+/* Telefon: przyciski na pełną szerokość, jeden pod drugim. */
+@media (max-width: 39.99em) {
+  .ksc-nav .button {
+    flex: 2 1 0;
+    min-height: 3rem;
+    padding-inline: var(--space-3);
+  }
+
+  .ksc-nav .ksc-prev {
+    flex: 1 1 0;
+  }
+
+  .ksc-result .ksc-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ksc-result .ksc-nav .button {
+    flex: none;
+    width: 100%;
+  }
+
+  .ksc-textbtn {
+    align-self: flex-start;
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 40em) {
+  /* Etykieta i przełącznik listy zajmują to samo pole siatki: etykieta od lewej, przełącznik
+     dosunięty do prawej, więc wszystkie wiersze odpowiedzi mają tę samą wysokość. Lista rozwija
+     się pod spodem. pointer-events przepuszcza kliknięcia w etykietę pod pustą częścią pola. */
+  .ksc-opt-row {
+    display: grid;
+  }
+
+  .ksc-opt-row > * {
+    grid-area: 1 / 1;
+  }
+
+  .ksc-opt {
+    align-self: start;
+  }
+
+  .ksc-more {
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .ksc-more summary,
+  .ksc-more ul {
+    pointer-events: auto;
+  }
+
+  .ksc-more summary {
+    width: max-content;
+    min-height: 3.25rem;
+    margin-left: auto;
+    padding-block: 0;
+  }
+
+  .ksc-more ul {
+    columns: 2;
+    column-gap: var(--space-6);
+    padding: 0 0 var(--space-4) calc(1.25rem + var(--space-4));
+  }
+
+  @supports selector(:has(a)) {
+    .ksc-opt-row:has(.ksc-more) .ksc-opt {
+      padding-right: 11rem;
+    }
+  }
+
+  .ksc-notes div {
+    grid-template-columns: 9rem 1fr;
+    align-items: baseline;
+  }
+}
+
+@media (min-width: 60em) {
+  .ksc-grid,
+  .ksc-faq div {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: var(--space-5);
+    align-items: start;
+  }
+
+  /* Zwarty tytuł: to strona narzędzia, więc pytanie ma być widać bez przewijania.
+     Tytuł w lewej części siatki, wstęp w prawej, na wysokości dolnego wiersza tytułu. */
+  .ksc-hero {
+    padding-block: 1.75rem;
+  }
+
+  .ksc-hero .eyebrow {
+    grid-column: 1 / -1;
+  }
+
+  .ksc-hero h1 {
+    grid-column: 1 / 6;
+    font-size: 2.5rem;
+    line-height: 1.02;
+  }
+
+  .ksc-hero .ksc-lead {
+    grid-column: 6 / -1;
+    align-self: end;
+    margin-top: 0;
+    padding-bottom: 0.15rem;
+    font-size: 1.0625rem;
+  }
+
+  /* Narzędzie zaczyna się wyżej niż zwykła sekcja, żeby pytanie było widać bez przewijania. */
+  .section.ksc-tool {
+    padding-block: 3.5rem 5rem;
+  }
+
+  .ksc-body {
+    grid-row: 1;
+    grid-column: 6 / -1;
+  }
+
+  /* Zapis odpowiedzi w lewej kolumnie, zawsze rozwinięty, zostaje na ekranie przy długich pytaniach. */
+  .ksc-aside {
+    grid-row: 1;
+    grid-column: 1 / 5;
+    position: sticky;
+    top: 7rem;
+    margin-top: 0;
+  }
+
+  /* Wynik: dzieci bloku wyniku stają się bezpośrednimi elementami siatki. Zapis odpowiedzi
+     idzie do lewej kolumny przez wszystkie wiersze, reszta zostaje w prawej. */
+  .ksc-result {
+    display: contents;
+  }
+
+  .ksc-result > * {
+    grid-column: 6 / -1;
+  }
+
+  .ksc-result > .ksc-aside {
+    grid-row: 1 / span 12;
+    grid-column: 1 / 5;
+    margin-top: 0;
+  }
+
+  .ksc-log-title {
+    display: block;
+  }
+
+  .ksc-log-toggle {
+    display: none;
+  }
+
+  .ksc-log {
+    display: block;
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .section .ksc-verdict {
+    font-size: 3.25rem;
+    line-height: 1;
+  }
+
+  /* Propozycja w jednym rzędzie: opis po lewej, przycisk po prawej. */
+  .ksc-next {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: var(--space-6);
+    align-items: center;
+  }
+
+  .ksc-next > * {
+    grid-column: 1;
+  }
+
+  .ksc-next .ksc-nav {
+    grid-row: 1 / span 3;
+    grid-column: 2;
+    margin-top: 0;
+  }
+
+  .ksc-how-wrap .section-intro {
+    grid-column: 1 / 5;
+    margin-bottom: 0;
+    font-size: 1.125rem;
+  }
+
+  .ksc-how {
+    grid-column: 6 / -1;
+  }
+
+  .ksc-faq dt {
+    grid-column: 1 / 5;
+  }
+
+  .ksc-faq dd {
+    grid-column: 6 / -1;
+  }
+}
+
+/* Telefon: po pierwszej odpowiedzi wstęp znika, żeby pytanie stało wyżej. */
+@media (max-width: 59.99em) {
+  .ksc-started .ksc-lead {
+    display: none;
+  }
+}
+
+/* Wydruk wyniku: bez przycisków, z rozwiniętym zapisem odpowiedzi. */
+@media print {
+  .ksc-nav,
+  .ksc-change,
+  .ksc-next,
+  .ksc-log-toggle {
+    display: none;
+  }
+
+  .ksc-log {
+    display: block;
+  }
+}
